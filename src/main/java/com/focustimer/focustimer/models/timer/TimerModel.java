@@ -1,21 +1,31 @@
 package com.focustimer.focustimer.models.timer;
 
+import com.focustimer.focustimer.models.TemplateContainer;
 import com.focustimer.focustimer.models.TemplateObserver;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.Vector;
 
 @Getter
 @Setter
 public class TimerModel implements TemplateObserver {
+    private final TemplateContainer container = TemplateContainer.INSTANCE;
+    private final List<TimerModelObserver> stateOserverList = new Vector<>();
+    private final List<TimerModelObserver> timeOserverList = new Vector<>();
+
     private TimerState state;
     private String goalStr;
     private double maxTime;
     private double timeSet;
     private double curTime;
-    private final List<TimerModelObserver> observerList = new Vector<>();
+
+
+    public TimerModel() {
+        container.registerObserver(this);
+    }
 
     @Override
     public void onTemplateNumChanged() {
@@ -23,24 +33,47 @@ public class TimerModel implements TemplateObserver {
 
     }
 
-    public void initialize(int templateNum){
-
+    public void loadData(int templateNum){
+        Properties properties = new Properties();
+        // TODO refactor to MEMENTO
     }
 
-    public void registerObserver(TimerModelObserver observer){
-        this.observerList.add(observer);
+    public void registerStateObserver(TimerModelObserver observer){
+        this.stateOserverList.add(observer);
     }
 
-    public void removeObserver(TimerModelObserver observer){
-        this.observerList.remove(observer);
+    public void removeStateObserver(TimerModelObserver observer){
+        this.stateOserverList.remove(observer);
     }
 
-    public void notifyObservers(){
+    public void notifyStateObservers(){
+        for(TimerModelObserver observer : this.stateOserverList){
+            observer.onTimerStateChanged();
+        }
+    }
 
+    public void registerTimeObserver(TimerModelObserver observer){
+        this.timeOserverList.add(observer);
+    }
+
+    public void removeTimeObserver(TimerModelObserver observer){
+        this.timeOserverList.remove(observer);
+    }
+
+    public void notifyTimeObservers(){
+        for(TimerModelObserver observer : this.timeOserverList){
+            observer.onTimerTimeChanged();
+        }
+    }
+
+    public void setTime(double time){
+        this.curTime = time;
+        notifyTimeObservers();
     }
 
     public void setState(TimerState state) {
         this.state = state;
+        notifyStateObservers();
     }
 
     public void start(){

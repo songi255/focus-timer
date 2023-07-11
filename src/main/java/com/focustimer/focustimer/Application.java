@@ -38,6 +38,10 @@ public class Application extends javafx.application.Application {
         stage.show();
     }
 
+    public void addTrayIcon(){
+
+    }
+
     public static void main(String[] args) {
         launch();
     }
