@@ -30,8 +30,9 @@ public class Application extends javafx.application.Application {
 
         // hide title bar
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.setAlwaysOnTop(true);
+        stage.setResizable(true);
 
+        stage.setAlwaysOnTop(true);
         stage.setOpacity(0.2);
 
         stage.setScene(scene);
