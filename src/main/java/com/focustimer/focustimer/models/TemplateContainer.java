@@ -7,30 +7,28 @@ package com.focustimer.focustimer.models;
 
 import com.focustimer.focustimer.models.timer.TimerModel;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 @Getter
 public enum TemplateContainer {
     INSTANCE;
 
-    private int templateNum = -1;
+    private int templateNum;
     private final List<TemplateObserver> templateObserverList = new LinkedList<>();
+    private TemplateDataManager templateDataManager;
+    private TimerModel timerModel;
+    // and more Models...
 
-    public void registerObserver(TemplateObserver observer){
-        this.templateObserverList.add(observer);
+    // setters
+    public void setTemplateDataManager(TemplateDataManager templateDataManager) {
+        this.templateDataManager = templateDataManager;
     }
 
-    public void removeObserver(TemplateObserver observer){
-        this.templateObserverList.remove(observer);
-    }
-
-    public void notifyTemplateNumChanged(){
-        for(TemplateObserver observer : this.templateObserverList){
-            observer.onTemplateNumChanged();
-        }
+    public void setTimerModel(TimerModel timerModel) {
+        this.timerModel = timerModel;
     }
 
     public void setTemplateNum(int templateNum){
@@ -38,6 +36,18 @@ public enum TemplateContainer {
         notifyTemplateNumChanged();
     }
 
-    private final TimerModel timerModel = new TimerModel();
-    // and more Models...
+    // observer
+    public void registerObservers(TemplateObserver ...observers){
+        this.templateObserverList.addAll(List.of(observers));
+    }
+
+    public void removeObservers(TemplateObserver ...observers){
+        this.templateObserverList.removeAll(List.of(observers));
+    }
+
+    public void notifyTemplateNumChanged(){
+        for(TemplateObserver observer : this.templateObserverList){
+            observer.onTemplateNumChanged();
+        }
+    }
 }

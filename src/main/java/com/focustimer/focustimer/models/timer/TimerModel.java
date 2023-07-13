@@ -1,49 +1,48 @@
 package com.focustimer.focustimer.models.timer;
 
 import com.focustimer.focustimer.models.TemplateContainer;
+import com.focustimer.focustimer.models.TemplateDataManager;
 import com.focustimer.focustimer.models.TemplateObserver;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 @Getter
 @Setter
 public class TimerModel implements TemplateObserver {
-    private final TemplateContainer container = TemplateContainer.INSTANCE;
     private final List<TimerModelObserver> stateOserverList = new Vector<>();
     private final List<TimerModelObserver> timeOserverList = new Vector<>();
 
     private TimerState state;
     private String goalStr;
     private double maxTime;
-    private double timeSet;
+    private double startTime;
     private double curTime;
-
-
-    public TimerModel() {
-        container.registerObserver(this);
-    }
 
     @Override
     public void onTemplateNumChanged() {
         this.setState(TimerState.READY);
-
+        TemplateDataManager dataManager = TemplateContainer.INSTANCE.getTemplateDataManager();
+        this.goalStr = dataManager.readData("timer.goal");
+        this.maxTime = Double.parseDouble(dataManager.readData("timer.maxTime"));
+        this.startTime = Double.parseDouble(dataManager.readData("timer.startTime"));
+        this.curTime = startTime;
     }
 
     public void loadData(int templateNum){
-        Properties properties = new Properties();
         // TODO refactor to MEMENTO
     }
 
-    public void registerStateObserver(TimerModelObserver observer){
-        this.stateOserverList.add(observer);
+    public void registerStateObservers(TimerModelObserver ...observers){
+        this.stateOserverList.addAll(List.of(observers));
     }
 
-    public void removeStateObserver(TimerModelObserver observer){
-        this.stateOserverList.remove(observer);
+    public void removeStateObservers(TimerModelObserver ...observers){
+        this.stateOserverList.removeAll(List.of(observers));
     }
 
     public void notifyStateObservers(){
@@ -52,12 +51,12 @@ public class TimerModel implements TemplateObserver {
         }
     }
 
-    public void registerTimeObserver(TimerModelObserver observer){
-        this.timeOserverList.add(observer);
+    public void registerTimeObserver(TimerModelObserver ...observers){
+        this.timeOserverList.addAll(List.of(observers));
     }
 
-    public void removeTimeObserver(TimerModelObserver observer){
-        this.timeOserverList.remove(observer);
+    public void removeTimeObserver(TimerModelObserver ...observers){
+        this.timeOserverList.removeAll(List.of(observers));
     }
 
     public void notifyTimeObservers(){
@@ -66,7 +65,7 @@ public class TimerModel implements TemplateObserver {
         }
     }
 
-    public void setTime(double time){
+    public void setCurTime(double time){
         this.curTime = time;
         notifyTimeObservers();
     }
@@ -78,6 +77,14 @@ public class TimerModel implements TemplateObserver {
 
     public void start(){
         setState(TimerState.RUNNING);
+        // FIXME : TEMP
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                setCurTime(getCurTime() - 0.33);
+            }
+        }, 1000, 33);
     };
 
     public void stop(){
