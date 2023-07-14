@@ -1,6 +1,6 @@
 package com.focustimer.focustimer.models.timer;
 
-enum TimerState {
+public enum TimerState {
     READY,
     RUNNING,
     PAUSE,

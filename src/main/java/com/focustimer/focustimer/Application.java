@@ -1,41 +1,34 @@
 package com.focustimer.focustimer;
 
-import com.focustimer.focustimer.models.TemplateContainer;
-import com.focustimer.focustimer.models.TemplateDataManager;
-import com.focustimer.focustimer.models.timer.TimerModel;
+import com.focustimer.focustimer.models.Assembler;
+import com.focustimer.focustimer.models.ModelContainer;
+import com.focustimer.focustimer.models.template.TemplateModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.Properties;
 
 public class Application extends javafx.application.Application {
     @Override
     public void init() throws Exception {
         super.init();
 
-        // DI
-        TimerModel timerModel = new TimerModel();
-        TemplateDataManager templateDataManager = new TemplateDataManager();
+        Assembler.assemble();
 
-        TemplateContainer container = TemplateContainer.INSTANCE;
-        container.setTimerModel(timerModel);
-        container.setTemplateDataManager(templateDataManager);
-        container.registerObservers(timerModel);
+        ModelContainer container = ModelContainer.CONTAINER;
+        TemplateModel templateModel = container.getTemplateModel();
 
-        container.setTemplateNum(1);
+        templateModel.setTemplateNum(1);
 
-        templateDataManager.saveData("hi", "hihi");
-
-        timerModel.start();
+        //container.getTimerModel().start();
     }
 
     @Override
     public void stop() throws Exception {
-        super.stop();
         // clean resources(file, network,,,)
+        super.stop();
     }
 
     @Override
