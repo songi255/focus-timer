@@ -30,11 +30,11 @@ public class timerControlController implements Initializable, TimerObserver {
         TimerState state = timerModel.getState();
         if (state == TimerState.RUNNING){
             Platform.runLater(() -> {
-                btnStart.setImage(new Image("../resources/com/focustimer/focustimer/icons/play.png"));
+                btnStart.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/pause.png").toExternalForm()));
             });
         } else {
             Platform.runLater(() -> {
-                btnStart.setImage(new Image("../resources/com/focustimer/focustimer/icons/pause.png"));
+                btnStart.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/play.png").toExternalForm()));
             });
         }
     }
