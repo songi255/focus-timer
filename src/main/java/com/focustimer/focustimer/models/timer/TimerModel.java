@@ -26,7 +26,8 @@ public class TimerModel implements ContainerObserver, TemplateObserver {
     private double curTime;
     private int templateNum;
 
-    private Timer timer = new Timer();
+    // timer service is dependent on timerModel... so did not inject at assembler...
+    private final TimerService timerService = new TimerService(this);
 
     @Override
     public void onContainerInitialized() {
@@ -49,19 +50,21 @@ public class TimerModel implements ContainerObserver, TemplateObserver {
 
     public void start(){
         if (state == TimerState.READY || state == TimerState.PAUSE || state == TimerState.STOP){
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    setCurTime(getCurTime() - 0.33);
-                }
-            }, 0, 33);
+            timerService.start();
+//            timer.schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    setCurTime(getCurTime() - 0.33);
+//                }
+//            }, 0, 33);
             setState(TimerState.RUNNING);
         }
     };
 
     public void stop(){
         if (state == TimerState.RUNNING || state == TimerState.PAUSE || state == TimerState.FINISH){
-            timer.cancel();
+            //timer.cancel();
+            timerService.cancel();
             setCurTime(startTime);
             setState(TimerState.STOP);
         }
@@ -69,7 +72,8 @@ public class TimerModel implements ContainerObserver, TemplateObserver {
 
     public void pause(){
         if(state == TimerState.RUNNING){
-            timer.cancel();
+            //timer.cancel();
+            timerService.cancel();
             setState(TimerState.PAUSE);
         }
     };

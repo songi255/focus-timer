@@ -1,3 +1,8 @@
+/**
+ * perform DI for each models.
+ *
+ * @author Dave Shin
+ */
 package com.focustimer.focustimer.models;
 
 import com.focustimer.focustimer.models.template.TemplateModel;
@@ -5,7 +10,7 @@ import com.focustimer.focustimer.models.timer.TimerModel;
 
 public class Assembler {
     // DI
-    public static void assemble(){
+    public void assemble(){
         ModelContainer container = ModelContainer.CONTAINER;
         TemplateModel templateModel = new TemplateModel();
         TimerModel timerModel = new TimerModel();
@@ -18,5 +23,7 @@ public class Assembler {
         templateModel.registerObservers(timerModel);
 
         timerModel.setDataManager(dataManager);
+
+
     }
 }

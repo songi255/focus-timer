@@ -5,4 +5,8 @@ module com.focustimer.focustimer {
 
     opens com.focustimer.focustimer to javafx.fxml;
     exports com.focustimer.focustimer;
+
+    // temp
+    opens com.focustimer.focustimer.components to javafx.fxml;
+    exports com.focustimer.focustimer.components;
 }

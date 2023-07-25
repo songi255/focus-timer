@@ -14,11 +14,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Application extends javafx.application.Application {
+    final static int APP_DEFAULT_WIDTH = 360;
+    final static int APP_DEFAULT_HEIGHT = 480;
+
     @Override
     public void init() throws Exception {
         super.init();
 
-        Assembler.assemble();
+        new Assembler().assemble();
 
         ModelContainer container = ModelContainer.CONTAINER;
         TemplateModel templateModel = container.getTemplateModel();
@@ -26,17 +29,13 @@ public class Application extends javafx.application.Application {
         templateModel.setTemplateNum(1);
 
 
-        new Timer().schedule(new TimerTask() {
-                                 @Override
-                                 public void run() {
-                                     container.getTimerModel().start();
-                                 }
-                             }
-                , 1000);
-
-
-
-
+//        new Timer().schedule(new TimerTask() {
+//                                 @Override
+//                                 public void run() {
+//                                     container.getTimerModel().start();
+//                                 }
+//                             }
+//                , 1000);
     }
 
     @Override
@@ -49,13 +48,13 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pages/main.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 960);
-        scene.setFill(Color.TRANSPARENT);
+        Scene scene = new Scene(fxmlLoader.load(), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
+        //scene.setFill(Color.TRANSPARENT);
 
         // hide title bar
 
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.initStyle(StageStyle.TRANSPARENT);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(true);
 
         stage.setAlwaysOnTop(true);

@@ -29,104 +29,86 @@ import java.util.TimerTask;
 public class MainController implements Initializable, TimerObserver {
     private TimerModel timerModel;
 
-    @FXML
-    private Arc timerArc;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.timerModel = ModelContainer.CONTAINER.getTimerModel();
         timerModel.registerTimeObserver(this);
         timerModel.registerStateObservers(this);
-
-        double radius = 200;
-
-        timerArc.setStartAngle(90);
-        timerArc.setLength(timerModel.getCurTime() / timerModel.getMaxTime() * 360);
-        timerArc.setFill(Paint.valueOf("red"));
-
-        timerArc.setRadiusX(radius);
-        timerArc.setRadiusY(radius);
-        timerArc.setCenterX(100);
-        timerArc.setCenterY(100);
-
-
-        timerArc.setType(ArcType.ROUND);
     }
 
     @Override
     public void onTimerTimeChanged() {
         TimerObserver.super.onTimerTimeChanged();
-        timerArc.setLength(timerModel.getCurTime() / timerModel.getMaxTime() * 360);
     }
 
     @Override
     public void onTimerStateChanged() {
-        TimerState state = timerModel.getState();
-        if (state == TimerState.RUNNING){
-            // opacity
-            // size
-            // position
-
-            Window stage = timerArc.getScene().getWindow();
-            Screen curScreen = Screen.getPrimary();
-            for(Screen screen : Screen.getScreens()){
-                if (screen.getBounds().contains(stage.getX() + stage.getWidth() / 2, stage.getY() + stage.getHeight() / 2)){
-                    curScreen = screen;
-                }
-            }
-
-            double screenWidth = curScreen.getBounds().getWidth();
-            double screenHeight = curScreen.getBounds().getHeight();
-
-            // FIXME : use basic Thread
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                final long startTimeMillis = System.currentTimeMillis();
-                final double toOpacity = 0.2;
-                final double toWidth = 100;
-                final double toHeight = 100;
-                final double toX = screenWidth - toWidth - 100;
-                final double toY = screenHeight - toHeight - 100;
-
-                public void onTimeout(){
-                    Platform.runLater(() -> {
-                        stage.setOpacity(toOpacity);
-                        stage.setWidth(toWidth);
-                        stage.setHeight(toHeight);
-                        stage.setX(toX);
-                        stage.setY(toY);
-
-                        // FIXME : stage radius temp
-                        Rectangle rect = new Rectangle(100,100);
-                        rect.setArcHeight(60.0);
-                        rect.setArcWidth(60.0);
-                        timerArc.getScene().getRoot().setClip(rect);
-                        timerArc.getScene().getRoot().setStyle("-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: white");
-
-                    });
-                }
-
-                public double getNextValue(double from, double to){
-                    double ratio = 0.075;
-                    return (from + to * ratio) / (ratio + 1);
-                }
-
-                @Override
-                public void run() {
-                    Platform.runLater(() -> {
-                        stage.setOpacity(getNextValue(stage.getOpacity(), toOpacity));
-                        stage.setWidth(getNextValue(stage.getWidth(), toWidth));
-                        stage.setHeight(getNextValue(stage.getHeight(), toHeight));
-                        stage.setX(getNextValue(stage.getX(), toX));
-                        stage.setY(getNextValue(stage.getY(), toY));
-                    });
-
-                    if ((System.currentTimeMillis() - startTimeMillis) > 500){
-                        timer.cancel();
-                        onTimeout();
-                    }
-                }
-            }, 0, 1000 / 144);
-        }
+//        TimerState state = timerModel.getState();
+//        if (state == TimerState.RUNNING){
+//            // opacity
+//            // size
+//            // position
+//
+//            Window stage = timerArc.getScene().getWindow();
+//            Screen curScreen = Screen.getPrimary();
+//            for(Screen screen : Screen.getScreens()){
+//                if (screen.getBounds().contains(stage.getX() + stage.getWidth() / 2, stage.getY() + stage.getHeight() / 2)){
+//                    curScreen = screen;
+//                }
+//            }
+//
+//            double screenWidth = curScreen.getBounds().getWidth();
+//            double screenHeight = curScreen.getBounds().getHeight();
+//
+//            // FIXME : use basic Thread
+//            Timer timer = new Timer();
+//            timer.schedule(new TimerTask() {
+//                final long startTimeMillis = System.currentTimeMillis();
+//                final double toOpacity = 0.2;
+//                final double toWidth = 100;
+//                final double toHeight = 100;
+//                final double toX = screenWidth - toWidth - 100;
+//                final double toY = screenHeight - toHeight - 100;
+//
+//                public void onTimeout(){
+//                    Platform.runLater(() -> {
+//                        stage.setOpacity(toOpacity);
+//                        stage.setWidth(toWidth);
+//                        stage.setHeight(toHeight);
+//                        stage.setX(toX);
+//                        stage.setY(toY);
+//
+//                        // FIXME : stage radius temp
+//                        Rectangle rect = new Rectangle(100,100);
+//                        rect.setArcHeight(60.0);
+//                        rect.setArcWidth(60.0);
+//                        timerArc.getScene().getRoot().setClip(rect);
+//                        timerArc.getScene().getRoot().setStyle("-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: white");
+//
+//                    });
+//                }
+//
+//                public double getNextValue(double from, double to){
+//                    double ratio = 0.075;
+//                    return (from + to * ratio) / (ratio + 1);
+//                }
+//
+//                @Override
+//                public void run() {
+//                    Platform.runLater(() -> {
+//                        stage.setOpacity(getNextValue(stage.getOpacity(), toOpacity));
+//                        stage.setWidth(getNextValue(stage.getWidth(), toWidth));
+//                        stage.setHeight(getNextValue(stage.getHeight(), toHeight));
+//                        stage.setX(getNextValue(stage.getX(), toX));
+//                        stage.setY(getNextValue(stage.getY(), toY));
+//                    });
+//
+//                    if ((System.currentTimeMillis() - startTimeMillis) > 500){
+//                        timer.cancel();
+//                        onTimeout();
+//                    }
+//                }
+//            }, 0, 1000 / 144);
+//        }
     }
 }
