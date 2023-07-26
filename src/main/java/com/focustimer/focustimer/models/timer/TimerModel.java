@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
 
 @Getter
@@ -50,20 +48,13 @@ public class TimerModel implements ContainerObserver, TemplateObserver {
 
     public void start(){
         if (state == TimerState.READY || state == TimerState.PAUSE || state == TimerState.STOP){
-            timerService.start();
-//            timer.schedule(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    setCurTime(getCurTime() - 0.33);
-//                }
-//            }, 0, 33);
+            timerService.restart();
             setState(TimerState.RUNNING);
         }
     };
 
     public void stop(){
         if (state == TimerState.RUNNING || state == TimerState.PAUSE || state == TimerState.FINISH){
-            //timer.cancel();
             timerService.cancel();
             setCurTime(startTime);
             setState(TimerState.STOP);
@@ -72,7 +63,6 @@ public class TimerModel implements ContainerObserver, TemplateObserver {
 
     public void pause(){
         if(state == TimerState.RUNNING){
-            //timer.cancel();
             timerService.cancel();
             setState(TimerState.PAUSE);
         }

@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Application extends javafx.application.Application {
     final static int APP_DEFAULT_WIDTH = 360;
@@ -28,14 +26,6 @@ public class Application extends javafx.application.Application {
 
         templateModel.setTemplateNum(1);
 
-
-//        new Timer().schedule(new TimerTask() {
-//                                 @Override
-//                                 public void run() {
-//                                     container.getTimerModel().start();
-//                                 }
-//                             }
-//                , 1000);
     }
 
     @Override

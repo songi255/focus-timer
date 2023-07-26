@@ -16,8 +16,8 @@ import java.util.ResourceBundle;
 public class timerControlController implements Initializable, TimerObserver {
     private TimerModel timerModel;
 
-    @FXML ImageView btnStart;
-    @FXML ImageView btnStop;
+    @FXML ImageView btnStartImg;
+    @FXML ImageView btnStopImg;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,22 +30,25 @@ public class timerControlController implements Initializable, TimerObserver {
         TimerState state = timerModel.getState();
         if (state == TimerState.RUNNING){
             Platform.runLater(() -> {
-                btnStart.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/pause.png").toExternalForm()));
+                btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/pause.png").toExternalForm()));
             });
         } else {
             Platform.runLater(() -> {
-                btnStart.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/play.png").toExternalForm()));
+                btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/play.png").toExternalForm()));
             });
         }
     }
 
     @FXML private void handleStart(){
-        timerModel.start();
-        System.out.println("start!");
+        TimerState state = timerModel.getState();
+        if (state == TimerState.RUNNING){
+            timerModel.pause();
+        } else {
+            timerModel.start();
+        }
     }
 
     @FXML private void handleStop(){
         timerModel.stop();
-        System.out.println("stop!");
     }
 }
