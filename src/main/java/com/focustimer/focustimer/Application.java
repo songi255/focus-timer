@@ -37,18 +37,13 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pages/main.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         Scene scene = new Scene(fxmlLoader.load(), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
         //scene.setFill(Color.TRANSPARENT);
-
-        // hide title bar
 
         //stage.initStyle(StageStyle.UNDECORATED);
         //stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(true);
-
         stage.setAlwaysOnTop(true);
-        //stage.setOpacity(0.2);
 
         stage.setScene(scene);
         stage.show();

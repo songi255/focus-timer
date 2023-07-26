@@ -22,10 +22,11 @@ public class TimerService extends Service<Void> {
                     timerModel.setCurTime(startSec - passedTime);
 
                     //temp
-                    Thread.sleep(1000 / 144);
+                    Thread.sleep(1000 / 60); // 60 fps
                 }
 
                 timerModel.setCurTime(0);
+                timerModel.setState(TimerState.FINISH);
                 return null;
             }
         };
