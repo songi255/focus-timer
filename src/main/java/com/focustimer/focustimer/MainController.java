@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -27,13 +28,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainController implements Initializable, TimerObserver {
+    @FXML Button btnPrev;
+    @FXML Button btnNext;
     private TimerModel timerModel;
+    private OverlayService overlayService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.timerModel = ModelContainer.CONTAINER.getTimerModel();
         timerModel.registerTimeObserver(this);
         timerModel.registerStateObservers(this);
+
+        this.overlayService = new OverlayService();
     }
 
     @Override
@@ -43,72 +49,22 @@ public class MainController implements Initializable, TimerObserver {
 
     @Override
     public void onTimerStateChanged() {
-//        TimerState state = timerModel.getState();
-//        if (state == TimerState.RUNNING){
-//            // opacity
-//            // size
-//            // position
-//
-//            Window stage = timerArc.getScene().getWindow();
-//            Screen curScreen = Screen.getPrimary();
-//            for(Screen screen : Screen.getScreens()){
-//                if (screen.getBounds().contains(stage.getX() + stage.getWidth() / 2, stage.getY() + stage.getHeight() / 2)){
-//                    curScreen = screen;
-//                }
-//            }
-//
-//            double screenWidth = curScreen.getBounds().getWidth();
-//            double screenHeight = curScreen.getBounds().getHeight();
-//
-//            // FIXME : use basic Thread
-//            Timer timer = new Timer();
-//            timer.schedule(new TimerTask() {
-//                final long startTimeMillis = System.currentTimeMillis();
-//                final double toOpacity = 0.2;
-//                final double toWidth = 100;
-//                final double toHeight = 100;
-//                final double toX = screenWidth - toWidth - 100;
-//                final double toY = screenHeight - toHeight - 100;
-//
-//                public void onTimeout(){
-//                    Platform.runLater(() -> {
-//                        stage.setOpacity(toOpacity);
-//                        stage.setWidth(toWidth);
-//                        stage.setHeight(toHeight);
-//                        stage.setX(toX);
-//                        stage.setY(toY);
-//
-//                        // FIXME : stage radius temp
-//                        Rectangle rect = new Rectangle(100,100);
-//                        rect.setArcHeight(60.0);
-//                        rect.setArcWidth(60.0);
-//                        timerArc.getScene().getRoot().setClip(rect);
-//                        timerArc.getScene().getRoot().setStyle("-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: white");
-//
-//                    });
-//                }
-//
-//                public double getNextValue(double from, double to){
-//                    double ratio = 0.075;
-//                    return (from + to * ratio) / (ratio + 1);
-//                }
-//
-//                @Override
-//                public void run() {
-//                    Platform.runLater(() -> {
-//                        stage.setOpacity(getNextValue(stage.getOpacity(), toOpacity));
-//                        stage.setWidth(getNextValue(stage.getWidth(), toWidth));
-//                        stage.setHeight(getNextValue(stage.getHeight(), toHeight));
-//                        stage.setX(getNextValue(stage.getX(), toX));
-//                        stage.setY(getNextValue(stage.getY(), toY));
-//                    });
-//
-//                    if ((System.currentTimeMillis() - startTimeMillis) > 500){
-//                        timer.cancel();
-//                        onTimeout();
-//                    }
-//                }
-//            }, 0, 1000 / 144);
-//        }
+        TimerState state = timerModel.getState();
+        overlayService.setWindow(btnPrev.getScene().getWindow());
+
+        if (state == TimerState.RUNNING){
+            overlayService.overlay();
+        } else {
+            System.out.println("listen unoverlay");
+            overlayService.unOverlay();
+        }
+    }
+
+    @FXML public void handlePrevTemplate(){
+        System.out.println("prev template clicked!");
+    }
+
+    @FXML public void handleNextTemplate(){
+        System.out.println("next template clicked!");
     }
 }

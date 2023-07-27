@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 public class TemplateModel {
     private int templateNum;
+    private String templateName;
     private final List<TemplateObserver> templateObserverList = new LinkedList<>();
     private DataManager dataManager;
     // and more Models...
