@@ -1,9 +1,10 @@
 package com.focustimer.focustimer.components;
 
-import com.focustimer.focustimer.models.ModelContainer;
-import com.focustimer.focustimer.models.timer.TimerModel;
-import com.focustimer.focustimer.models.timer.TimerObserver;
-import com.focustimer.focustimer.models.timer.TimerState;
+import com.focustimer.focustimer.model.timer.TimerModel;
+import com.focustimer.focustimer.model.timer.TimerObserver;
+import com.focustimer.focustimer.model.timer.TimerService;
+import com.focustimer.focustimer.model.timer.TimerState;
+import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,15 +15,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class timerControlController implements Initializable, TimerObserver {
-    private TimerModel timerModel;
+    private final TimerModel timerModel;
+    private final TimerService timerService;
 
     @FXML ImageView btnStartImg;
     @FXML ImageView btnStopImg;
 
+    @Inject
+    public timerControlController(TimerModel timerModel, TimerService timerService) {
+        this.timerModel = timerModel;
+        this.timerService = timerService;
+
+        this.timerModel.registerStateObservers(this);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.timerModel = ModelContainer.CONTAINER.getTimerModel();
-        timerModel.registerStateObservers(this);
+
     }
 
     @Override
@@ -42,13 +51,13 @@ public class timerControlController implements Initializable, TimerObserver {
     @FXML private void handleStart(){
         TimerState state = timerModel.getState();
         if (state == TimerState.RUNNING){
-            timerModel.pause();
+            timerService.pauseTimer();
         } else {
-            timerModel.start();
+            timerService.startTimer();
         }
     }
 
     @FXML private void handleStop(){
-        timerModel.stop();
+        timerService.stopTimer();
     }
 }

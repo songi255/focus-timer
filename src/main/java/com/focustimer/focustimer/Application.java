@@ -1,13 +1,12 @@
 package com.focustimer.focustimer;
 
-import com.focustimer.focustimer.models.Assembler;
-import com.focustimer.focustimer.models.ModelContainer;
-import com.focustimer.focustimer.models.template.TemplateModel;
+import com.focustimer.focustimer.config.AppModule;
+import com.focustimer.focustimer.model.template.TemplateModel;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -18,14 +17,6 @@ public class Application extends javafx.application.Application {
     @Override
     public void init() throws Exception {
         super.init();
-
-        new Assembler().assemble();
-
-        ModelContainer container = ModelContainer.CONTAINER;
-        TemplateModel templateModel = container.getTemplateModel();
-
-        templateModel.setTemplateNum(1);
-
     }
 
     @Override
@@ -36,8 +27,18 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pages/main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
+        Injector injector = Guice.createInjector(new AppModule());
+
+        // temp
+        injector.getInstance(TemplateModel.class).setTemplateNum(1);
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setControllerFactory(injector::getInstance);
+        fxmlLoader.setLocation(getClass().getResource("pages/main.fxml"));
+
+        //injector.getAllBindings().forEach((k, v) -> System.out.println("key: " + k + ", v: " + v));
+
+        Scene scene = new Scene(fxmlLoader.load(getClass().getResourceAsStream("pages/main.fxml")), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
         //scene.setFill(Color.TRANSPARENT);
 
         //stage.initStyle(StageStyle.UNDECORATED);
@@ -50,7 +51,7 @@ public class Application extends javafx.application.Application {
     }
 
     public void addTrayIcon(){
-
+        // https://jinseongsoft.tistory.com/166
     }
 
     public static void main(String[] args) {

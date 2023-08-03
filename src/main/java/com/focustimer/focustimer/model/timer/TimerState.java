@@ -1,4 +1,4 @@
-package com.focustimer.focustimer.models.timer;
+package com.focustimer.focustimer.model.timer;
 
 public enum TimerState {
     READY,

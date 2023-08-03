@@ -1,18 +1,21 @@
-package com.focustimer.focustimer.models.timer;
+package com.focustimer.focustimer.model.timer;
 
-import com.focustimer.focustimer.models.ContainerObserver;
-import com.focustimer.focustimer.models.DataManager;
-import com.focustimer.focustimer.models.template.TemplateObserver;
+import com.focustimer.focustimer.config.autoscan.Bean;
+import com.focustimer.focustimer.config.DataManager;
+import com.focustimer.focustimer.model.template.TemplateModel;
+import com.focustimer.focustimer.model.template.TemplateObserver;
+import com.google.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 import java.util.Vector;
 
+@Bean
 @Getter
 @Setter
-public class TimerModel implements ContainerObserver, TemplateObserver {
-    private DataManager dataManager;
+public class TimerModel implements TemplateObserver {
+    private final DataManager dataManager;
 
     private final List<TimerObserver> stateOserverList = new Vector<>();
     private final List<TimerObserver> timeOserverList = new Vector<>();
@@ -24,12 +27,11 @@ public class TimerModel implements ContainerObserver, TemplateObserver {
     private double curTime;
     private int templateNum;
 
-    // timer service is dependent on timerModel... so did not inject at assembler...
-    private final TimerService timerService = new TimerService(this);
-
-    @Override
-    public void onContainerInitialized() {
-
+    @Inject
+    public TimerModel(DataManager dataManager) {
+        this.dataManager = dataManager;
+        // temp
+        onTemplateNumChanged(1);
     }
 
     @Override
@@ -45,28 +47,6 @@ public class TimerModel implements ContainerObserver, TemplateObserver {
         setState(TimerState.READY);
         setCurTime(startTime);
     }
-
-    public void start(){
-        if (state == TimerState.READY || state == TimerState.PAUSE || state == TimerState.STOP){
-            timerService.restart();
-            setState(TimerState.RUNNING);
-        }
-    };
-
-    public void stop(){
-        if (state == TimerState.RUNNING || state == TimerState.PAUSE || state == TimerState.FINISH){
-            timerService.cancel();
-            setCurTime(startTime);
-            setState(TimerState.STOP);
-        }
-    };
-
-    public void pause(){
-        if(state == TimerState.RUNNING){
-            timerService.cancel();
-            setState(TimerState.PAUSE);
-        }
-    };
 
     public void registerStateObservers(TimerObserver...observers){
         this.stateOserverList.addAll(List.of(observers));

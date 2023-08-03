@@ -3,15 +3,17 @@
  *
  */
 
-package com.focustimer.focustimer.models.template;
+package com.focustimer.focustimer.model.template;
 
-import com.focustimer.focustimer.models.DataManager;
+import com.focustimer.focustimer.config.autoscan.Bean;
+import com.focustimer.focustimer.config.DataManager;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Bean
 @Getter
 @Setter
 public class TemplateModel {

@@ -1,4 +1,4 @@
-package com.focustimer.focustimer.models.timer;
+package com.focustimer.focustimer.model.timer;
 
 public interface TimerObserver {
     public default void onTimerStateChanged(){};

@@ -17,6 +17,7 @@ import javafx.concurrent.Task;
 import javafx.stage.Screen;
 import javafx.stage.Window;
 
+@com.focustimer.focustimer.config.autoscan.Service
 public class OverlayService extends Service<Void> {
     private Window stage;
     private final double RATIO = 0.075;

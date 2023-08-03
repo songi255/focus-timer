@@ -1,8 +1,8 @@
 package com.focustimer.focustimer.components;
 
-import com.focustimer.focustimer.models.ModelContainer;
-import com.focustimer.focustimer.models.timer.TimerModel;
-import com.focustimer.focustimer.models.timer.TimerObserver;
+import com.focustimer.focustimer.model.timer.TimerModel;
+import com.focustimer.focustimer.model.timer.TimerObserver;
+import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,19 +16,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TimerDiskViewController implements Initializable, TimerObserver {
-    private TimerModel timerModel;
+    @FXML Canvas timerCanvas;
 
-    @FXML
-    Canvas timerCanvas;
-
+    private final TimerModel timerModel;
     private GraphicsContext gc;
+
+    @Inject
+    public TimerDiskViewController(TimerModel timerModel) {
+        this.timerModel = timerModel;
+        this.timerModel.registerStateObservers(this);
+        this.timerModel.registerTimeObserver(this);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.timerModel = ModelContainer.CONTAINER.getTimerModel();
-        timerModel.registerStateObservers(this);
-        timerModel.registerTimeObserver(this);
-
         double radius = 144;
 
         gc = timerCanvas.getGraphicsContext2D();

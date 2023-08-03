@@ -1,8 +1,11 @@
-package com.focustimer.focustimer.models;
+package com.focustimer.focustimer.config;
+
+import com.focustimer.focustimer.config.autoscan.Component;
 
 import java.io.*;
 import java.util.Properties;
 
+@Component
 public class DataManager {
     private final Properties properties = new Properties();
 
