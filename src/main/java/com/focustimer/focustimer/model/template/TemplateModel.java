@@ -6,7 +6,7 @@
 package com.focustimer.focustimer.model.template;
 
 import com.focustimer.focustimer.config.autoscan.Bean;
-import com.focustimer.focustimer.config.DataManager;
+import com.focustimer.focustimer.config.store.DataManager;
 import lombok.Getter;
 import lombok.Setter;
 

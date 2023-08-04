@@ -1,3 +1,8 @@
+/**
+ * Guice Component Scan Configuration
+ *
+ */
+
 package com.focustimer.focustimer.config.autoscan;
 
 import com.google.inject.AbstractModule;
@@ -25,9 +30,7 @@ public class ComponentScanModule extends AbstractModule {
         for(Class<? extends Annotation> annotationClass : bindingAnnotations){
             Set<Class<?>> classes =  packageReflections.getTypesAnnotatedWith(annotationClass);
             for(Class<?> clazz : classes){
-                if (annotationClass.equals(Controller.class)) bind(clazz);
-                else bind(clazz).in(Singleton.class);
-
+                bind(clazz).in(Singleton.class);
             }
         }
     }

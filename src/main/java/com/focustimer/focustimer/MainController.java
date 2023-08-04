@@ -3,6 +3,7 @@ package com.focustimer.focustimer;
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
 import com.focustimer.focustimer.model.timer.TimerState;
+import com.focustimer.focustimer.service.OverlayService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

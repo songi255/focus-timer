@@ -2,7 +2,7 @@ package com.focustimer.focustimer.components;
 
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
-import com.focustimer.focustimer.model.timer.TimerService;
+import com.focustimer.focustimer.service.TimerService;
 import com.focustimer.focustimer.model.timer.TimerState;
 import com.google.inject.Inject;
 import javafx.application.Platform;

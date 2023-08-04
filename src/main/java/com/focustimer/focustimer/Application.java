@@ -28,7 +28,6 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         Injector injector = Guice.createInjector(new AppModule());
-
         // temp
         injector.getInstance(TemplateModel.class).setTemplateNum(1);
 

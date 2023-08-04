@@ -1,8 +1,8 @@
 package com.focustimer.focustimer.model.timer;
 
 import com.focustimer.focustimer.config.autoscan.Bean;
-import com.focustimer.focustimer.config.DataManager;
-import com.focustimer.focustimer.model.template.TemplateModel;
+import com.focustimer.focustimer.config.store.DataManager;
+import com.focustimer.focustimer.config.store.Save;
 import com.focustimer.focustimer.model.template.TemplateObserver;
 import com.google.inject.Inject;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class TimerModel implements TemplateObserver {
     private String goalStr;
     private double maxTime;
     private double startTime;
-    private double curTime;
+    @Save private double curTime;
     private int templateNum;
 
     @Inject

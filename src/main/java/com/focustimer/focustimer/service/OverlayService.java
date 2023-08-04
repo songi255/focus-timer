@@ -9,15 +9,16 @@
  * @author Dave Shin
  */
 
-package com.focustimer.focustimer;
+package com.focustimer.focustimer.service;
 
+import com.focustimer.focustimer.config.autoscan.ServiceBean;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.stage.Screen;
 import javafx.stage.Window;
 
-@com.focustimer.focustimer.config.autoscan.Service
+@ServiceBean
 public class OverlayService extends Service<Void> {
     private Window stage;
     private final double RATIO = 0.075;
