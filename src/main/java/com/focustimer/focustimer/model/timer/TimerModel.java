@@ -1,6 +1,7 @@
 package com.focustimer.focustimer.model.timer;
 
 import com.focustimer.focustimer.config.autoscan.Bean;
+import com.focustimer.focustimer.config.store.DataInjector;
 import com.focustimer.focustimer.config.store.DataManager;
 import com.focustimer.focustimer.config.store.Save;
 import com.focustimer.focustimer.config.store.SaveWithTemplate;
@@ -17,21 +18,22 @@ import java.util.Vector;
 @Setter
 public class TimerModel implements TemplateObserver {
     private final DataManager dataManager;
+    private final DataInjector dataInjector;
 
     private final List<TimerObserver> stateOserverList = new Vector<>();
     private final List<TimerObserver> timeOserverList = new Vector<>();
 
     private TimerState state;
-    private String goalStr;
-    private double maxTime;
-    private double startTime;
-    @SaveWithTemplate
+    @SaveWithTemplate private String goalStr;
+    @SaveWithTemplate private double maxTime;
+    @SaveWithTemplate private double startTime;
     private double curTime;
     private int templateNum;
 
     @Inject
-    public TimerModel(DataManager dataManager) {
+    public TimerModel(DataManager dataManager, DataInjector dataInjector) {
         this.dataManager = dataManager;
+        this.dataInjector = dataInjector;
         // temp
         onTemplateNumChanged(1);
     }
@@ -43,9 +45,10 @@ public class TimerModel implements TemplateObserver {
 
     private void loadData(int templateNum){
         this.templateNum = templateNum;
-        this.goalStr = dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.goalStr"));
-        this.maxTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.maxTime")));
-        this.startTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.startTime")));
+//        this.goalStr = dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.goalStr"));
+//        this.maxTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.maxTime")));
+//        this.startTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.startTime")));
+        dataInjector.inject(this);
         setState(TimerState.READY);
         setCurTime(startTime);
     }
@@ -86,20 +89,5 @@ public class TimerModel implements TemplateObserver {
     public void setState(TimerState state) {
         this.state = state;
         notifyStateObservers();
-    }
-
-    public void setGoalStr(String goalStr) {
-        this.goalStr = goalStr;
-        dataManager.setData(DataManager.generateKey(templateNum, "timer.goalStr"), goalStr);
-    }
-
-    public void setMaxTime(double maxTime) {
-        this.maxTime = maxTime;
-        dataManager.setData(DataManager.generateKey(templateNum, "timer.maxTime"), String.valueOf(this.maxTime));
-    }
-
-    public void setStartTime(double startTime) {
-        this.startTime = startTime;
-        dataManager.setData(DataManager.generateKey(templateNum, "timer.startTime"), String.valueOf(this.startTime));
     }
 }

@@ -7,6 +7,7 @@ package com.focustimer.focustimer.model.template;
 
 import com.focustimer.focustimer.config.autoscan.Bean;
 import com.focustimer.focustimer.config.store.DataManager;
+import com.focustimer.focustimer.config.store.SaveWithTemplate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,11 +18,9 @@ import java.util.List;
 @Getter
 @Setter
 public class TemplateModel {
-    private int templateNum;
-    private String templateName;
+    @SaveWithTemplate private int templateNum;
+    @SaveWithTemplate private String templateName;
     private final List<TemplateObserver> templateObserverList = new LinkedList<>();
-    private DataManager dataManager;
-    // and more Models...
 
     public void setTemplateNum(int templateNum){
         this.templateNum = templateNum;
