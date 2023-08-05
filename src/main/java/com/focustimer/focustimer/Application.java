@@ -35,8 +35,6 @@ public class Application extends javafx.application.Application {
         fxmlLoader.setControllerFactory(injector::getInstance);
         fxmlLoader.setLocation(getClass().getResource("pages/main.fxml"));
 
-        //injector.getAllBindings().forEach((k, v) -> System.out.println("key: " + k + ", v: " + v));
-
         Scene scene = new Scene(fxmlLoader.load(getClass().getResourceAsStream("pages/main.fxml")), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
         //scene.setFill(Color.TRANSPARENT);
 

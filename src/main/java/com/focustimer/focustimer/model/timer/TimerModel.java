@@ -17,7 +17,6 @@ import java.util.Vector;
 @Getter
 @Setter
 public class TimerModel implements TemplateObserver {
-    private final DataManager dataManager;
     private final DataInjector dataInjector;
 
     private final List<TimerObserver> stateOserverList = new Vector<>();
@@ -31,8 +30,7 @@ public class TimerModel implements TemplateObserver {
     private int templateNum;
 
     @Inject
-    public TimerModel(DataManager dataManager, DataInjector dataInjector) {
-        this.dataManager = dataManager;
+    public TimerModel(DataInjector dataInjector) {
         this.dataInjector = dataInjector;
         // temp
         onTemplateNumChanged(1);
@@ -45,9 +43,6 @@ public class TimerModel implements TemplateObserver {
 
     private void loadData(int templateNum){
         this.templateNum = templateNum;
-//        this.goalStr = dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.goalStr"));
-//        this.maxTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.maxTime")));
-//        this.startTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.startTime")));
         dataInjector.inject(this);
         setState(TimerState.READY);
         setCurTime(startTime);

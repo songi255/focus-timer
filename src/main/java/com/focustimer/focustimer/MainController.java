@@ -35,7 +35,7 @@ public class MainController implements TimerObserver {
         if (state == TimerState.RUNNING){
             overlayService.overlay();
         } else {
-            System.out.println("listen unoverlay");
+            System.out.println("unOverlay");
             overlayService.unOverlay();
         }
     }

@@ -16,6 +16,11 @@ public class TimerService extends Service<Void> {
     @Inject
     public TimerService(TimerModel timerModel) {
         this.timerModel = timerModel;
+        this.setOnSucceeded(e -> {
+            System.out.println("setOnSucceeded called in " + Thread.currentThread());
+            timerModel.setCurTime(0);
+            timerModel.setState(TimerState.FINISH);
+        });
     }
 
     @Override
@@ -27,18 +32,18 @@ public class TimerService extends Service<Void> {
                 double startSec = timerModel.getCurTime();
                 double passedTime = 0;
 
+                int count = 0;
+
                 while(passedTime < startSec){
-                    passedTime = (System.currentTimeMillis() - startTime) / 1000.0 * 100;
-                    timerModel.setCurTime(startSec - passedTime);
-
-                    // new Label().fireEvent(new Event(Event.ANY));
-
                     //temp
                     Thread.sleep(1000 / 60); // 60 fps
+
+                    passedTime = (System.currentTimeMillis() - startTime) / 1000.0 * 100;
+                    timerModel.setCurTime(startSec - passedTime);
                 }
 
-                timerModel.setCurTime(0);
-                timerModel.setState(TimerState.FINISH);
+                System.out.println("task Called in " + Thread.currentThread());
+
                 return null;
             }
         };

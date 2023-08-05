@@ -39,14 +39,14 @@ public class OverlayService extends Service<Void> {
     private double originalX;
     private double originalY;
 
-    private boolean isOverayState = false;
+    private boolean isOverlayState = false;
 
     public void setWindow(Window window){
         this.stage = window;
     }
 
     public void overlay(){
-        if(isOverayState) return;
+        if(isOverlayState) return;
 
         originalWidth = stage.getWidth();
         originalXHeight = stage.getHeight();
@@ -57,8 +57,10 @@ public class OverlayService extends Service<Void> {
     }
 
     public void unOverlay(){
-        if(!isOverayState) return;
-        System.out.println("unoverlay called!");
+        if(!isOverlayState) return;
+        System.out.println("overlay service 1");
+        System.out.println(getState());
+        System.out.println("overlay service 2");
         restart();
     }
 
@@ -90,7 +92,7 @@ public class OverlayService extends Service<Void> {
                         {originalY, screenHeight - ( overlayHeight + overlayYGap )}
                 };
 
-                if (isOverayState){
+                if (isOverlayState){
                     for (int i = 0; i < 5; i++) {
                         double temp = arr[i][0];
                         arr[i][0] = arr[i][1];
@@ -130,7 +132,7 @@ public class OverlayService extends Service<Void> {
 //                    timerArc.getScene().getRoot().setStyle("-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: white");
 //                });
 
-                isOverayState = !isOverayState;
+                isOverlayState = !isOverlayState;
                 System.out.println("overay finish");
                 return null;
             }
