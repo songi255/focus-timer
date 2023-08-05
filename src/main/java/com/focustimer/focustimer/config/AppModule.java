@@ -17,14 +17,16 @@ public class AppModule extends AbstractModule {
     protected void configure() {
         install(new ComponentScanModule("com.focustimer.focustimer", Bean.class, ServiceBean.class, Component.class));
 
-        PersistenceProvider persistenceProvider = new PersistenceProvider();
+        PersistenceProvider persistenceProvider = new PersistenceProvider(false);
+        PersistenceProvider persistenceProviderWithTemplate = new PersistenceProvider(true);
         requestInjection(persistenceProvider);
-        bindInterceptor(Matchers.annotatedWith(Bean.class), getMethodMatchers(Save.class), persistenceProvider);
-        bindInterceptor(Matchers.annotatedWith(Bean.class), getMethodMatchers(SaveWithTemplate.class), persistenceProvider);
+        requestInjection(persistenceProviderWithTemplate);
+        bindInterceptor(Matchers.annotatedWith(Bean.class), getSetterMatchers(Save.class), persistenceProvider);
+        bindInterceptor(Matchers.annotatedWith(Bean.class), getSetterMatchers(SaveWithTemplate.class), persistenceProviderWithTemplate);
     }
 
     @SafeVarargs
-    private Matcher<Method> getMethodMatchers(final Class<? extends Annotation> ...annotationClasses) {
+    private Matcher<Method> getSetterMatchers(final Class<? extends Annotation> ...annotationClasses) {
         return new Matcher<Method>() {
             /**
              * Validates
@@ -41,11 +43,9 @@ public class AppModule extends AbstractModule {
                 if (method.getParameterCount() != 1) return false;
 
                 // get target field name from method name
-                String firstChar = methodName.substring(3, 4).toLowerCase();
-                String targetFieldName = new StringBuilder(methodName).replace(0, 4, firstChar).toString();
+                String targetFieldName = Character.toLowerCase(methodName.charAt(3)) + methodName.substring(4);
 
                 try {
-
                     Field targetField = method.getDeclaringClass().getDeclaredField(targetFieldName);
                     for (Class<? extends Annotation> annotationClass : annotationClasses){
                         if (targetField.isAnnotationPresent(annotationClass)) return true;

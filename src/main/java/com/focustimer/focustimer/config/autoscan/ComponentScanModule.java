@@ -30,6 +30,7 @@ public class ComponentScanModule extends AbstractModule {
         for(Class<? extends Annotation> annotationClass : bindingAnnotations){
             Set<Class<?>> classes =  packageReflections.getTypesAnnotatedWith(annotationClass);
             for(Class<?> clazz : classes){
+                System.out.println(clazz.getSimpleName());
                 bind(clazz).in(Singleton.class);
             }
         }

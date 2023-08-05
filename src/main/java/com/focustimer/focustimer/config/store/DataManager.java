@@ -28,6 +28,7 @@ public class DataManager {
     public void setData(String key, String value){
         properties.setProperty(key, value);
         saveToFile();
+        System.out.println("saved data with key : " + key + ", value : " + value);
     }
 
     private void saveToFile(){
@@ -39,7 +40,12 @@ public class DataManager {
         }
     }
 
-    public static String generateKey(int templateNum, String key){
-        return "template-" + templateNum + "." + key;
+    public static String generateKey(int templateNum, String... keys){
+        StringBuilder sb = new StringBuilder("template-");
+        sb.append(templateNum);
+        for(String key : keys){
+            sb.append('.').append(key);
+        }
+        return sb.toString();
     }
 }

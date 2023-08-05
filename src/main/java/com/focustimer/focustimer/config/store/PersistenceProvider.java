@@ -6,20 +6,43 @@
 package com.focustimer.focustimer.config.store;
 
 import com.focustimer.focustimer.model.template.TemplateModel;
-import lombok.Setter;
+import com.google.inject.Inject;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-@Setter
 public class PersistenceProvider implements MethodInterceptor {
+    private final boolean saveWithTemplate;
     private DataManager dataManager;
     private TemplateModel templateModel;
 
+    public PersistenceProvider(boolean saveWithTemplate) {
+        this.saveWithTemplate = saveWithTemplate;
+    }
+
+    @Inject
+    public void setDataManager(DataManager dataManager) {
+        this.dataManager = dataManager;
+    }
+
+    @Inject
+    public void setTemplateModel(TemplateModel templateModel) {
+        this.templateModel = templateModel;
+    }
+
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        Class<?> targetClass = invocation.getThis().getClass();
         System.out.println("intercepted on " + invocation.getMethod().getName());
 
+        Class<?> targetClass = invocation.getThis().getClass();
+        String className = targetClass.getSimpleName().split("[$]")[0];
+        String methodName = invocation.getMethod().getName();
+        String fieldName = Character.toLowerCase(methodName.charAt(3)) + methodName.substring(4);
+
+        String key = className + "." + fieldName;
+        if (saveWithTemplate){
+            key = DataManager.generateKey(templateModel.getTemplateNum(), key);
+        }
+        dataManager.setData(key, String.valueOf(invocation.getArguments()[0]));
 
         return invocation.proceed();
     }

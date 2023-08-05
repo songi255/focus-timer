@@ -14,11 +14,15 @@ module com.focustimer.focustimer {
     exports com.focustimer.focustimer.components;
 
     opens com.focustimer.focustimer.model.timer to com.google.guice;
+    exports com.focustimer.focustimer.model.timer;
     opens com.focustimer.focustimer.model.template to com.google.guice;
+    exports com.focustimer.focustimer.model.template;
     opens com.focustimer.focustimer.config to com.google.guice;
-    exports com.focustimer.focustimer.service;
+    exports com.focustimer.focustimer.config;
     opens com.focustimer.focustimer.service to com.google.guice, javafx.fxml;
+    exports com.focustimer.focustimer.service;
     opens com.focustimer.focustimer.config.store to com.google.guice;
+    exports com.focustimer.focustimer.config.store;
 
 
 }

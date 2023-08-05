@@ -3,6 +3,7 @@ package com.focustimer.focustimer.model.timer;
 import com.focustimer.focustimer.config.autoscan.Bean;
 import com.focustimer.focustimer.config.store.DataManager;
 import com.focustimer.focustimer.config.store.Save;
+import com.focustimer.focustimer.config.store.SaveWithTemplate;
 import com.focustimer.focustimer.model.template.TemplateObserver;
 import com.google.inject.Inject;
 import lombok.Getter;
@@ -24,7 +25,8 @@ public class TimerModel implements TemplateObserver {
     private String goalStr;
     private double maxTime;
     private double startTime;
-    @Save private double curTime;
+    @SaveWithTemplate
+    private double curTime;
     private int templateNum;
 
     @Inject
@@ -41,9 +43,9 @@ public class TimerModel implements TemplateObserver {
 
     private void loadData(int templateNum){
         this.templateNum = templateNum;
-        this.goalStr = dataManager.getData(DataManager.generateKey(templateNum, "timer.goalStr"));
-        this.maxTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "timer.maxTime")));
-        this.startTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "timer.startTime")));
+        this.goalStr = dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.goalStr"));
+        this.maxTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.maxTime")));
+        this.startTime = Double.parseDouble(dataManager.getData(DataManager.generateKey(templateNum, "TimerModel.startTime")));
         setState(TimerState.READY);
         setCurTime(startTime);
     }
