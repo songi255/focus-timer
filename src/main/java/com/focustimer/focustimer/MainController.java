@@ -17,14 +17,8 @@ public class MainController implements TimerObserver {
     @Inject
     public MainController(TimerModel timerModel, OverlayService overlayService) {
         this.timerModel = timerModel;
-        timerModel.registerTimeObserver(this);
         timerModel.registerStateObservers(this);
         this.overlayService = overlayService;
-    }
-
-    @Override
-    public void onTimerTimeChanged() {
-        TimerObserver.super.onTimerTimeChanged();
     }
 
     @Override

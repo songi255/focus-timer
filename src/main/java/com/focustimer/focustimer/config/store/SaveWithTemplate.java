@@ -8,4 +8,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface SaveWithTemplate {
+    /**
+     * initialize with defaultValue when data not exists
+     */
+    String value() default "";
 }

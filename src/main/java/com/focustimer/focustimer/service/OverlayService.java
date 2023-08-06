@@ -11,7 +11,9 @@
 
 package com.focustimer.focustimer.service;
 
+import com.focustimer.focustimer.config.Settings;
 import com.focustimer.focustimer.config.autoscan.ServiceBean;
+import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -20,6 +22,7 @@ import javafx.stage.Window;
 
 @ServiceBean
 public class OverlayService extends Service<Void> {
+    private final Settings settings;
     private Window stage;
     private final double RATIO = 0.075;
 
@@ -41,6 +44,11 @@ public class OverlayService extends Service<Void> {
 
     private boolean isOverlayState = false;
 
+    @Inject
+    public OverlayService(Settings settings) {
+        this.settings = settings;
+    }
+
     public void setWindow(Window window){
         this.stage = window;
     }
@@ -58,20 +66,7 @@ public class OverlayService extends Service<Void> {
 
     public void unOverlay(){
         if(!isOverlayState) return;
-        System.out.println("overlay service 1");
-        System.out.println(getState());
-        System.out.println("overlay service 2");
         restart();
-    }
-
-    private Screen getCurScreen(){
-        Screen curScreen = Screen.getPrimary();
-        for(Screen screen : Screen.getScreens()){
-            if (screen.getBounds().contains(stage.getX() + stage.getWidth() / 2, stage.getY() + stage.getHeight() / 2)){
-                curScreen = screen;
-            }
-        }
-        return curScreen;
     }
 
     @Override
@@ -137,5 +132,15 @@ public class OverlayService extends Service<Void> {
                 return null;
             }
         };
+    }
+
+    private Screen getCurScreen(){
+        Screen curScreen = Screen.getPrimary();
+        for(Screen screen : Screen.getScreens()){
+            if (screen.getBounds().contains(stage.getX() + stage.getWidth() / 2, stage.getY() + stage.getHeight() / 2)){
+                curScreen = screen;
+            }
+        }
+        return curScreen;
     }
 }

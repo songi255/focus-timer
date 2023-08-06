@@ -1,6 +1,7 @@
 package com.focustimer.focustimer.service;
 
 import com.focustimer.focustimer.config.autoscan.ServiceBean;
+import com.focustimer.focustimer.model.timer.TimerEvent;
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerState;
 import com.google.inject.Inject;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 @ServiceBean
 public class TimerService extends Service<Void> {
     private final TimerModel timerModel;
+    private final long INTERVAL = 1000 / 60; // 60fps
 
     @Inject
     public TimerService(TimerModel timerModel) {
@@ -31,20 +33,19 @@ public class TimerService extends Service<Void> {
                 double startSec = timerModel.getCurTime();
                 double passedTime = 0;
 
-                int count = 0;
-
                 while(passedTime < startSec){
-                    //temp
-                    Thread.sleep(1000 / 60); // 60 fps
-
                     passedTime = (System.currentTimeMillis() - startTime) / 1000.0 * 100;
                     timerModel.setCurTime(startSec - passedTime);
+
+                    Thread.sleep(INTERVAL);
                 }
 
                 return null;
             }
         };
     }
+
+
 
     public void startTimer(){
         TimerState state = timerModel.getState();

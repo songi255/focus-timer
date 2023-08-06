@@ -1,5 +1,6 @@
 package com.focustimer.focustimer.components;
 
+import com.focustimer.focustimer.model.timer.TimerEvent;
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
 import com.google.inject.Inject;

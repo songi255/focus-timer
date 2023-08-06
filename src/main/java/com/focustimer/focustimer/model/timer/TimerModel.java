@@ -23,9 +23,9 @@ public class TimerModel implements TemplateObserver {
     private final List<TimerObserver> timeOserverList = new Vector<>();
 
     private TimerState state;
-    @SaveWithTemplate private String goalStr;
-    @SaveWithTemplate private double maxTime;
-    @SaveWithTemplate private double startTime;
+    @SaveWithTemplate("goal") private String goalStr;
+    @SaveWithTemplate("3600") private double maxTime;
+    @SaveWithTemplate("2400") private double startTime;
     private double curTime;
     private int templateNum;
 
