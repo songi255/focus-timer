@@ -17,7 +17,6 @@ public class TimerService extends Service<Void> {
     public TimerService(TimerModel timerModel) {
         this.timerModel = timerModel;
         this.setOnSucceeded(e -> {
-            System.out.println("setOnSucceeded called in " + Thread.currentThread());
             timerModel.setCurTime(0);
             timerModel.setState(TimerState.FINISH);
         });
@@ -41,8 +40,6 @@ public class TimerService extends Service<Void> {
                     passedTime = (System.currentTimeMillis() - startTime) / 1000.0 * 100;
                     timerModel.setCurTime(startSec - passedTime);
                 }
-
-                System.out.println("task Called in " + Thread.currentThread());
 
                 return null;
             }
