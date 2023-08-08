@@ -1,7 +1,7 @@
 package com.focustimer.focustimer;
 
 import com.focustimer.focustimer.config.AppModule;
-import com.focustimer.focustimer.model.template.TemplateModel;
+import com.focustimer.focustimer.config.store.TemplateModel;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;

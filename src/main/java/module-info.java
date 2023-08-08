@@ -5,6 +5,7 @@ module com.focustimer.focustimer {
     requires com.google.guice;
     requires org.reflections;
     requires aopalliance;
+    requires org.slf4j;
 
     opens com.focustimer.focustimer to javafx.fxml;
     exports com.focustimer.focustimer;
@@ -15,8 +16,6 @@ module com.focustimer.focustimer {
 
     opens com.focustimer.focustimer.model.timer to com.google.guice;
     exports com.focustimer.focustimer.model.timer;
-    opens com.focustimer.focustimer.model.template to com.google.guice;
-    exports com.focustimer.focustimer.model.template;
     opens com.focustimer.focustimer.config to com.google.guice;
     exports com.focustimer.focustimer.config;
     opens com.focustimer.focustimer.service to com.google.guice, javafx.fxml;

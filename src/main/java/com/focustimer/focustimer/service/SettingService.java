@@ -7,8 +7,7 @@
 package com.focustimer.focustimer.service;
 
 import com.focustimer.focustimer.config.store.DataManager;
-import com.focustimer.focustimer.config.autoscan.ServiceBean;
-import com.focustimer.focustimer.model.template.TemplateModel;
+import com.focustimer.focustimer.config.store.TemplateModel;
 
 //@ServiceBean
 public class SettingService {

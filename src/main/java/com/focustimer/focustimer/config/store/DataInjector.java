@@ -1,26 +1,31 @@
 package com.focustimer.focustimer.config.store;
 
 import com.focustimer.focustimer.config.autoscan.Component;
-import com.focustimer.focustimer.model.template.TemplateModel;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
+@Slf4j
 @Component
 public class DataInjector {
+    private final Injector injector;
     private final DataManager dataManager;
     private final TemplateModel templateModel;
 
     @Inject
-    public DataInjector(DataManager dataManager, TemplateModel templateModel) {
+    public DataInjector(Injector injector, DataManager dataManager, TemplateModel templateModel) {
+        this.injector = injector;
         this.dataManager = dataManager;
         this.templateModel = templateModel;
     }
 
-    public void inject(Object object){
-        Class<?> clazz = object.getClass().getSuperclass();
+    public void inject(Object targetObj){
+        Class<?> clazz = targetObj.getClass().getSuperclass();
         Field[] fields = clazz.getDeclaredFields();
 
         for(Field field : fields){
@@ -28,26 +33,28 @@ public class DataInjector {
             SaveWithTemplate saveWithTemplate = field.getAnnotation(SaveWithTemplate.class);
             if (save == null && saveWithTemplate == null) continue;
 
-            String defaultValue = save == null ? saveWithTemplate.value() : save.value();
-
             String key = clazz.getSimpleName() + "." +  field.getName();
             if (saveWithTemplate != null) key = DataManager.generateKey(templateModel.getTemplateNum(), key);
 
-            field.setAccessible(true);
+            String defaultValue = save == null ? saveWithTemplate.value() : save.value();
+
+            String fieldName = field.getName();
+            String setterName = "set" +
+                    Character.toUpperCase(fieldName.charAt(0)) +
+                    fieldName.substring(1);
+
             try {
                 Class<?> fieldType = getWrapperClass(field.getType());
                 String fetchedValue = dataManager.getData(key);
-                if (fetchedValue == null){
-                    dataManager.setData(key, defaultValue);
-                    fetchedValue = defaultValue;
-                }
-                System.out.println("fetched value : " + fetchedValue);
-                field.set(object, fieldType.getConstructor(String.class).newInstance(fetchedValue));
-            } catch (IllegalAccessException | InvocationTargetException | InstantiationException |
-                     NoSuchMethodException e) {
-                throw new RuntimeException(e);
+                if (fetchedValue == null) fetchedValue = defaultValue;
+
+                Method setter = clazz.getMethod(setterName, field.getType());
+                setter.invoke(targetObj, fieldType.getConstructor(String.class).newInstance(defaultValue));
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException("setter not exists on " + clazz.getName(), e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException("field type is not supported", e);
             }
-            field.setAccessible(false);
         }
     }
 

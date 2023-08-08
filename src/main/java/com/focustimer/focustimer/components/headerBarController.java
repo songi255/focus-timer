@@ -1,7 +1,7 @@
 package com.focustimer.focustimer.components;
 
-import com.focustimer.focustimer.model.template.TemplateModel;
-import com.focustimer.focustimer.model.template.TemplateObserver;
+import com.focustimer.focustimer.config.store.TemplateModel;
+import com.focustimer.focustimer.config.store.TemplateObserver;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

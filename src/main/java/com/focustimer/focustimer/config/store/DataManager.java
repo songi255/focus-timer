@@ -1,13 +1,13 @@
 package com.focustimer.focustimer.config.store;
 
 import com.focustimer.focustimer.config.autoscan.Component;
-import com.focustimer.focustimer.model.template.TemplateModel;
 import com.google.inject.Inject;
-import javafx.print.PrintColor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.Properties;
 
+@Slf4j
 @Component
 public class DataManager {
     private final Properties properties = new Properties();
@@ -16,7 +16,7 @@ public class DataManager {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("config.properties")) {
             properties.load(is);
         } catch (IOException e) {
-            System.out.println("config.properties not found.");
+            log.error("config.properties not found.");
             throw new RuntimeException(e);
         }
     }
@@ -26,16 +26,20 @@ public class DataManager {
     }
 
     public void setData(String key, String value){
+        String oldValue = getData(key);
+        if (value.equals(oldValue)) return;
+
         properties.setProperty(key, value);
         saveToFile();
-        System.out.println("saved data with key : " + key + ", value : " + value);
+
+        log.info("saved data with key : " + key + ", old value : " + oldValue + ", to new value : " + value);
     }
 
     private void saveToFile(){
         try (OutputStream os = new FileOutputStream(getClass().getClassLoader().getResource("config.properties").getFile())) {
             properties.store(os, "saved properties");
         } catch (IOException e) {
-            System.out.println("config.properties file not found.");
+            log.error("config.properties file not found.");
             throw new RuntimeException(e);
         }
     }

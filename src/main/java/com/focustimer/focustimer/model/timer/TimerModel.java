@@ -2,47 +2,36 @@ package com.focustimer.focustimer.model.timer;
 
 import com.focustimer.focustimer.config.autoscan.Bean;
 import com.focustimer.focustimer.config.store.DataInjector;
-import com.focustimer.focustimer.config.store.DataManager;
-import com.focustimer.focustimer.config.store.Save;
 import com.focustimer.focustimer.config.store.SaveWithTemplate;
-import com.focustimer.focustimer.model.template.TemplateObserver;
 import com.google.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 @Bean
 @Getter
 @Setter
-public class TimerModel implements TemplateObserver {
+public class TimerModel {
     private final DataInjector dataInjector;
 
-    private final List<TimerObserver> stateOserverList = new Vector<>();
-    private final List<TimerObserver> timeOserverList = new Vector<>();
+    private final List<TimerObserver> stateOserverList = new LinkedList<>();
+    private final List<TimerObserver> timeOserverList = new LinkedList<>();
 
     private TimerState state;
     @SaveWithTemplate("goal") private String goalStr;
     @SaveWithTemplate("3600") private double maxTime;
     @SaveWithTemplate("2400") private double startTime;
     private double curTime;
-    private int templateNum;
 
     @Inject
     public TimerModel(DataInjector dataInjector) {
         this.dataInjector = dataInjector;
-        // temp
-        onTemplateNumChanged(1);
+        loadData();
     }
 
-    @Override
-    public void onTemplateNumChanged(int templateNum) {
-        loadData(templateNum);
-    }
-
-    private void loadData(int templateNum){
-        this.templateNum = templateNum;
+    private void loadData(){
         dataInjector.inject(this);
         setState(TimerState.READY);
         setCurTime(startTime);

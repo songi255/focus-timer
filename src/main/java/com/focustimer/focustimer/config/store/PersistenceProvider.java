@@ -5,11 +5,12 @@
  */
 package com.focustimer.focustimer.config.store;
 
-import com.focustimer.focustimer.model.template.TemplateModel;
 import com.google.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
+@Slf4j
 public class PersistenceProvider implements MethodInterceptor {
     private final boolean saveWithTemplate;
     private DataManager dataManager;
@@ -31,7 +32,7 @@ public class PersistenceProvider implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        System.out.println("intercepted on " + invocation.getMethod().getName());
+        log.info("setter " + invocation.getMethod().getName() + " intercepted by Persistence Provider");
 
         Class<?> targetClass = invocation.getThis().getClass();
         String className = targetClass.getSimpleName().split("[$]")[0];
