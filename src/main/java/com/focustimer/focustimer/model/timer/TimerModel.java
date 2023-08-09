@@ -1,9 +1,8 @@
 package com.focustimer.focustimer.model.timer;
 
 import com.focustimer.focustimer.config.autoscan.Bean;
-import com.focustimer.focustimer.config.store.DataInjector;
+import com.focustimer.focustimer.config.store.AfterDataInject;
 import com.focustimer.focustimer.config.store.SaveWithTemplate;
-import com.google.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 public class TimerModel {
-    private final DataInjector dataInjector;
-
     private final List<TimerObserver> stateOserverList = new LinkedList<>();
     private final List<TimerObserver> timeOserverList = new LinkedList<>();
 
@@ -25,14 +22,8 @@ public class TimerModel {
     @SaveWithTemplate("2400") private double startTime;
     private double curTime;
 
-    @Inject
-    public TimerModel(DataInjector dataInjector) {
-        this.dataInjector = dataInjector;
-        //loadData();
-    }
-
-    private void loadData(){
-        dataInjector.inject(this);
+    @AfterDataInject
+    public void afterLoadData(){
         setState(TimerState.READY);
         setCurTime(startTime);
     }

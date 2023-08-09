@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -27,18 +28,32 @@ public class DataInjector {
         this.templateModel = templateModel;
 
         this.templateModel.addTemplateNumListener(this::injectAll);
-        //templateModel.setTemplateNum(1);
     }
 
     public void injectAll(){
-        System.out.println("injectAll called");
         Set<Key<?>> beanKeys = injector.getBindings().keySet();
+
         for(var key : beanKeys){
             Object target = injector.getInstance(key);
-            System.out.println(target);
-            if (target.getClass().getSuperclass().isAnnotationPresent(Bean.class)) {
-                System.out.println("get target : " + target.getClass());
-                inject(target);
+            Class<?> targetClass = target.getClass().getSuperclass();
+
+            if (targetClass.isAnnotationPresent(Bean.class)) {
+                Method[] methods = targetClass.getMethods();
+                Method beforeCall = null;
+                Method afterCall = null;
+
+                for(var method : methods){
+                    if (method.isAnnotationPresent(BeforeDataInject.class)) beforeCall = method;
+                    if (method.isAnnotationPresent(AfterDataInject.class)) afterCall = method;
+                }
+
+                try {
+                    if (beforeCall != null) beforeCall.invoke(target);
+                    inject(target);
+                    if (afterCall != null) afterCall.invoke(target);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    throw new RuntimeException("method invocation error", e);
+                }
             }
         }
     }
