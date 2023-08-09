@@ -1,14 +1,17 @@
 package com.focustimer.focustimer.config.store;
 
+import com.focustimer.focustimer.config.autoscan.Bean;
 import com.focustimer.focustimer.config.autoscan.Component;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Key;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -22,6 +25,22 @@ public class DataInjector {
         this.injector = injector;
         this.dataManager = dataManager;
         this.templateModel = templateModel;
+
+        this.templateModel.addTemplateNumListener(this::injectAll);
+        //templateModel.setTemplateNum(1);
+    }
+
+    public void injectAll(){
+        System.out.println("injectAll called");
+        Set<Key<?>> beanKeys = injector.getBindings().keySet();
+        for(var key : beanKeys){
+            Object target = injector.getInstance(key);
+            System.out.println(target);
+            if (target.getClass().getSuperclass().isAnnotationPresent(Bean.class)) {
+                System.out.println("get target : " + target.getClass());
+                inject(target);
+            }
+        }
     }
 
     public void inject(Object targetObj){

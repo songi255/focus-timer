@@ -16,13 +16,23 @@ import java.util.List;
 @Getter
 @Setter
 public class TemplateModel {
-    @SaveWithTemplate private int templateNum;
-    @SaveWithTemplate private String templateName;
-    private final List<TemplateObserver> templateObserverList = new LinkedList<>();
+    @Save("1") private int templateCount;
+    @SaveWithTemplate("1") private int templateNum;
+    @SaveWithTemplate("template") private String templateName;
+
+    private final List<Procedure> listeners = new LinkedList<>();
+
+    public void addTemplateNumListener(Procedure callback){
+        listeners.add(callback);
+    }
 
     public void setTemplateNum(int templateNum){
+        if (this.templateNum == templateNum) return;
         this.templateNum = templateNum;
-        notifyTemplateNumChanged();
+
+        for(Procedure callback : listeners) {
+            callback.invoke();
+        }
     }
 
     public void createTemplate(){
@@ -31,18 +41,5 @@ public class TemplateModel {
 
     public void deleteTemplate(int templateNum){
 
-    }
-
-    // observer
-    public void registerObservers(TemplateObserver ...observers){
-        templateObserverList.addAll(List.of(observers));
-    }
-
-    public void removeObservers(TemplateObserver ...observers){
-        templateObserverList.removeAll(List.of(observers));
-    }
-
-    private void notifyTemplateNumChanged(){
-        templateObserverList.forEach(observer -> observer.onTemplateNumChanged(this.templateNum));
     }
 }

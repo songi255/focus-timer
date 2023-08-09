@@ -38,7 +38,6 @@ public class AppModule extends AbstractModule {
             @Override
             public boolean matches(Method method) {
                 String methodName = method.getName();
-                System.out.println("do matches with " + methodName);
                 if (!methodName.startsWith("set")) return false;
                 if (method.getParameterCount() != 1) return false;
 

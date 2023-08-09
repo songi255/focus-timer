@@ -28,8 +28,6 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         Injector injector = Guice.createInjector(new AppModule());
-        // temp
-        injector.getInstance(TemplateModel.class).setTemplateNum(1);
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(injector::getInstance);
@@ -45,6 +43,9 @@ public class Application extends javafx.application.Application {
 
         stage.setScene(scene);
         stage.show();
+
+        // temp
+        injector.getInstance(TemplateModel.class).setTemplateNum(1);
     }
 
     public void addTrayIcon(){

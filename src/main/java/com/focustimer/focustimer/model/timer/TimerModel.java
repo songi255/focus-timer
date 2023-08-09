@@ -28,7 +28,7 @@ public class TimerModel {
     @Inject
     public TimerModel(DataInjector dataInjector) {
         this.dataInjector = dataInjector;
-        loadData();
+        //loadData();
     }
 
     private void loadData(){
