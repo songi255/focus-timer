@@ -13,7 +13,7 @@ public class DataManager {
     private final Properties properties = new Properties();
     @Inject
     public DataManager() {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream is = getClass().getResourceAsStream("/com/focustimer/focustimer/config.properties")) {
             properties.load(is);
         } catch (IOException e) {
             log.error("config.properties not found.");
@@ -36,7 +36,7 @@ public class DataManager {
     }
 
     private void saveToFile(){
-        try (OutputStream os = new FileOutputStream(getClass().getClassLoader().getResource("config.properties").getFile())) {
+        try (OutputStream os = new FileOutputStream(getClass().getResource("/com/focustimer/focustimer/config.properties").getFile())) {
             properties.store(os, "saved properties");
         } catch (IOException e) {
             log.error("config.properties file not found.");

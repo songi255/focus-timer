@@ -31,9 +31,9 @@ public class Application extends javafx.application.Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(injector::getInstance);
-        fxmlLoader.setLocation(getClass().getResource("pages/main.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("pages/main/main.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(getClass().getResourceAsStream("pages/main.fxml")), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
+        Scene scene = new Scene(fxmlLoader.load(getClass().getResourceAsStream("pages/main/main.fxml")), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
         //scene.setFill(Color.TRANSPARENT);
 
         //stage.initStyle(StageStyle.UNDECORATED);

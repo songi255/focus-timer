@@ -6,11 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.canvas.Canvas?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.focustimer.focustimer.components.TimerTextViewController"
-            stylesheets="@timerTextView.css"
+            fx:controller="com.focustimer.focustimer.components.timerDiskView.TimerDiskViewController"
+            stylesheets="@timerDiskView.css"
             prefHeight="400.0" prefWidth="600.0">
-    <Text fx:id="mainTimerTextView" />
+    <Canvas fx:id="timerCanvas" height="288.0" width="288.0"/>
 </AnchorPane>

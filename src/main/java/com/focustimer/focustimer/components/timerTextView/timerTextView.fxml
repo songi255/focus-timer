@@ -9,10 +9,8 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.focustimer.focustimer.components.headerBarController"
-            stylesheets="@headerBar.css"
+            fx:controller="com.focustimer.focustimer.components.timerTextView.TimerTextViewController"
+            stylesheets="@timerTextView.css"
             prefHeight="400.0" prefWidth="600.0">
-    <HBox>
-        <Text fx:id="templateText" />
-    </HBox>
+    <Text fx:id="mainTimerTextView" />
 </AnchorPane>

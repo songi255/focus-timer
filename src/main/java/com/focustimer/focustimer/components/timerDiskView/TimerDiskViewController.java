@@ -1,4 +1,4 @@
-package com.focustimer.focustimer.components;
+package com.focustimer.focustimer.components.timerDiskView;
 
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;

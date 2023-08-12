@@ -6,27 +6,27 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="480.0" prefWidth="360.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.focustimer.MainController">
-   <fx:include fx:id="headerBar" source="../components/headerBar/headerBar.fxml" />
+<AnchorPane prefHeight="480.0" prefWidth="360.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.focustimer.pages.main.MainController">
+   <fx:include fx:id="headerBar" source="../../components/headerBar/headerBar.fxml" />
 
    <Button fx:id="btnPrev" onAction="#handlePrevTemplate">
       <graphic>
          <ImageView fx:id="btnPrevImg" fitHeight="36.0" fitWidth="36.0" layoutX="37.0" layoutY="182.0" pickOnBounds="true"
                     preserveRatio="true">
-            <Image url="@../icons/arrow_back.png"/>
+            <Image url="@../../icons/arrow_back.png"/>
          </ImageView>
       </graphic>
    </Button>
    <VBox layoutX="32.0" layoutY="0" prefHeight="448.0" prefWidth="288.0">
-      <fx:include fx:id="timerDiskView" source="../components/timerDiskView/timerDiskView.fxml" />
-      <fx:include fx:id="timerTextView" source="../components/timerTextView/timerTextView.fxml" />
-      <fx:include fx:id="timerController" source="../components/timerController/timerController.fxml" />
+      <fx:include fx:id="timerDiskView" source="../../components/timerDiskView/timerDiskView.fxml" />
+      <fx:include fx:id="timerTextView" source="../../components/timerTextView/timerTextView.fxml" />
+      <fx:include fx:id="timerController" source="../../components/timerControl/timerControl.fxml" />
    </VBox>
    <Button fx:id="btnNext" onAction="#handleNextTemplate">
       <graphic>
          <ImageView fx:id="btnNextImg" fitHeight="36.0" fitWidth="36.0" layoutX="538.0" layoutY="182.0" pickOnBounds="true"
                     preserveRatio="true">
-            <Image url="@../icons/arrow_forward.png"/>
+            <Image url="@../../icons/arrow_forward.png"/>
          </ImageView>
       </graphic>
    </Button>

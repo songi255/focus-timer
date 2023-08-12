@@ -1,4 +1,4 @@
-package com.focustimer.focustimer;
+package com.focustimer.focustimer.pages.main;
 
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;

@@ -1,4 +1,4 @@
-package com.focustimer.focustimer.components;
+package com.focustimer.focustimer.components.headerBar;
 
 import com.focustimer.focustimer.config.store.TemplateModel;
 import com.google.inject.Inject;

@@ -1,4 +1,4 @@
-package com.focustimer.focustimer.components;
+package com.focustimer.focustimer.components.timerDiskView;
 
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
