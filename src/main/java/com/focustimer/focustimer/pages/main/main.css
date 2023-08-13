@@ -1,7 +1,8 @@
 #mainContainer {
     -fx-background-radius: 30;
     -fx-border-radius: 30;
-    -fx-background-color: white
+    -fx-background-color: white;
+    -fx-border-color: red;
 }
 
 #btnPrev, #btnNext {

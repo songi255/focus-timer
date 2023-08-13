@@ -2,11 +2,11 @@
 
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.canvas.Canvas?>
-<GridPane xmlns="http://javafx.com/javafx"
+<?import com.focustimer.focustimer.utils.ResizableCanvas?>
+<?import com.focustimer.focustimer.utils.CanvasPane?>
+<CanvasPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.focustimer.focustimer.components.timerDiskView.TimerDiskViewController"
             fx:id="timerCanvasContainer"
             stylesheets="@timerDiskView.css">
-    <Canvas fx:id="timerCanvas" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" GridPane.fillWidth="true" GridPane.fillHeight="true"/>
-</GridPane>
+</CanvasPane>
