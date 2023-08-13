@@ -1,0 +1,13 @@
+#mainContainer {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-background-color: white
+}
+
+#btnPrev, #btnNext {
+    -fx-background-color: none;
+}
+
+#btnPrev:hover, #btnNext:hover {
+
+}

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
@@ -11,7 +7,9 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.focustimer.focustimer.components.headerBar.headerBarController"
             stylesheets="@headerBar.css"
-            prefHeight="400.0" prefWidth="600.0">
+            styleClass="header-bar"
+            maxWidth="Infinity"
+            prefHeight="40.0">
     <HBox>
         <Text fx:id="templateText" />
     </HBox>

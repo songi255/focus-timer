@@ -2,32 +2,36 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="480.0" prefWidth="360.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.focustimer.pages.main.MainController">
-   <fx:include fx:id="headerBar" source="../../components/headerBar/headerBar.fxml" />
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<GridPane fx:id="mainContainer" maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.focustimer.pages.main.MainController">
+   <fx:include fx:id="headerBar" source="../../components/headerBar/headerBar.fxml" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS"/>
 
-   <Button fx:id="btnPrev" onAction="#handlePrevTemplate">
+   <Button fx:id="btnPrev" onAction="#handlePrevTemplate" GridPane.rowIndex="1" GridPane.columnIndex="0">
       <graphic>
-         <ImageView fx:id="btnPrevImg" fitHeight="36.0" fitWidth="36.0" layoutX="37.0" layoutY="182.0" pickOnBounds="true"
+         <ImageView fx:id="btnPrevImg" fitHeight="36.0" fitWidth="36.0"  pickOnBounds="true"
                     preserveRatio="true">
             <Image url="@../../icons/arrow_back.png"/>
          </ImageView>
       </graphic>
    </Button>
-   <VBox layoutX="32.0" layoutY="0" prefHeight="448.0" prefWidth="288.0">
+
+   <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
       <fx:include fx:id="timerDiskView" source="../../components/timerDiskView/timerDiskView.fxml" />
       <fx:include fx:id="timerTextView" source="../../components/timerTextView/timerTextView.fxml" />
       <fx:include fx:id="timerController" source="../../components/timerControl/timerControl.fxml" />
    </VBox>
-   <Button fx:id="btnNext" onAction="#handleNextTemplate">
+
+   <Button fx:id="btnNext" onAction="#handleNextTemplate" GridPane.rowIndex="1" GridPane.columnIndex="2">
       <graphic>
-         <ImageView fx:id="btnNextImg" fitHeight="36.0" fitWidth="36.0" layoutX="538.0" layoutY="182.0" pickOnBounds="true"
+         <ImageView fx:id="btnNextImg" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true"
                     preserveRatio="true">
             <Image url="@../../icons/arrow_forward.png"/>
          </ImageView>
       </graphic>
    </Button>
-</AnchorPane>
+
+</GridPane>

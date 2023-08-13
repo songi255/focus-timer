@@ -5,8 +5,12 @@ import com.focustimer.focustimer.config.store.TemplateModel;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -34,9 +38,15 @@ public class Application extends javafx.application.Application {
         fxmlLoader.setLocation(getClass().getResource("pages/main/main.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(getClass().getResourceAsStream("pages/main/main.fxml")), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
-        //scene.setFill(Color.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
 
-        //stage.initStyle(StageStyle.UNDECORATED);
+        Rectangle rect = new Rectangle();
+        rect.widthProperty().bind(scene.widthProperty());
+        rect.heightProperty().bind(scene.heightProperty());
+        rect.setArcHeight(30.0);
+        rect.setArcWidth(30.0);
+        scene.getRoot().setClip(rect);
+
         //stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(true);
         stage.setAlwaysOnTop(true);

@@ -90,7 +90,7 @@ public class TimerDiskViewDrawer {
         gc.setTextBaseline(VPos.CENTER);
         gc.setFill(Paint.valueOf("black"));
         gc.setEffect(timerArcShadowEffect);
-        gc.setFont(new Font("Rubik", fontSize));
+        gc.setFont(new Font("Helvetica.ttf", fontSize));
         gc.fillText(text, canvasWidth / 2, canvasHeight / 2);
 
         gc.restore();

@@ -1,14 +1,11 @@
 package com.focustimer.focustimer.service;
 
 import com.focustimer.focustimer.config.autoscan.ServiceBean;
-import com.focustimer.focustimer.model.timer.TimerEvent;
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerState;
 import com.google.inject.Inject;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.Event;
-import javafx.scene.control.Label;
 
 @ServiceBean
 public class TimerService extends Service<Void> {
