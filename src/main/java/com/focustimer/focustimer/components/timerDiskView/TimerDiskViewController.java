@@ -14,7 +14,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TimerDiskViewController implements Initializable, TimerObserver {
-    private Canvas timerCanvas;
     @FXML CanvasPane timerCanvasContainer;
 
     private final TimerModel timerModel;
@@ -29,20 +28,10 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.timerCanvas = timerCanvasContainer.getCanvas();
+        Canvas timerCanvas = timerCanvasContainer.getCanvas();
         drawer.setGc(timerCanvas.getGraphicsContext2D());
 
         timerCanvas.widthProperty().addListener(obs -> drawTimer());
-
-        timerCanvasContainer.widthProperty().addListener((obs, oldValue, newValue) -> {
-            System.out.println(obs);
-            System.out.println(timerCanvas.getWidth());
-        });
-    }
-
-    @Override
-    public void onTimerStateChanged() {
-        TimerObserver.super.onTimerStateChanged();
     }
 
     @Override
@@ -54,6 +43,7 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         drawer.clearCanvas();
         drawer.drawArc(Paint.valueOf("D04E4E"), timerModel.getCurTime() / timerModel.getMaxTime() * 360);
         drawer.drawScale();
-        drawer.drawString(timerModel.getGoalStr());
+        drawer.drawScaleNumber();
+        drawer.drawGoal(timerModel.getGoalStr());
     }
 }

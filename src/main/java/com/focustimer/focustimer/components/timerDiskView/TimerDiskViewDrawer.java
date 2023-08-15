@@ -58,7 +58,7 @@ public class TimerDiskViewDrawer {
         double gap = (canvasWidth * numRatio) / 2;
         double canvasCenterX = canvasWidth / 2;
         double canvasCenterY = canvasHeight / 2;
-        double scaleLength = canvasCenterX * scaleRatio;
+        double scaleLength = canvasCenterX * (1 - numRatio) * scaleRatio;
         double scaleThickness = scaleLength / 7.5;
         gc.save();
 
@@ -67,20 +67,43 @@ public class TimerDiskViewDrawer {
             gc.translate(canvasCenterX, canvasCenterY);
             gc.rotate(30);
             gc.translate(-canvasCenterX, -canvasCenterY);
-            gc.fillRect(canvasCenterX - (scaleThickness / 2),0, scaleThickness, scaleLength);
+            gc.fillRect(canvasCenterX - (scaleThickness / 2), gap, scaleThickness, scaleLength);
         }
 
         for (int i = 0; i < 12 * 5; i++) {
             gc.translate(canvasCenterX, canvasCenterY);
             gc.rotate(30 / 5);
             gc.translate(-canvasCenterX, -canvasCenterY);
-            gc.fillRect(canvasCenterX - (scaleThickness / 2),3, 2, 24);
+            gc.fillRect(canvasCenterX - (scaleThickness / 2), gap, 2, scaleLength / 3 * 2);
         }
 
         gc.restore();
     }
 
-    public void drawString(String text){
+    public void drawScaleNumber(){
+        double canvasCenterX = canvasWidth / 2;
+        double canvasCenterY = canvasHeight / 2;
+
+        double fontSize = canvasHeight * numRatio / 2;
+        Font font = new Font("Helvetica.ttf", fontSize);
+
+        double radius = canvasWidth / 2 - fontSize / 2;
+
+        gc.save();
+
+        gc.setFont(font);
+        gc.setTextBaseline(VPos.CENTER);
+        gc.setTextAlign(TextAlignment.CENTER);
+
+        gc.setFill(Paint.valueOf("black"));
+        for (int i = 0; i < 12; i++) {
+            double radian = Math.PI * i * 30 / 180;
+            gc.fillText(String.valueOf(i * 5), canvasCenterX - Math.sin(radian) * radius, canvasCenterY - Math.cos(radian) * radius);
+        }
+        gc.restore();
+    }
+
+    public void drawGoal(String text){
         double arcRatio = 1 - numRatio - scaleRatio;
         double fontSize = canvasHeight * arcRatio / 3;
 
