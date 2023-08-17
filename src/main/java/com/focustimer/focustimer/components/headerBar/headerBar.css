@@ -3,3 +3,7 @@
     -fx-border-width: 1;
     -fx-border-style: solid;
 }
+
+.btn {
+    -fx-background-color: none;
+}

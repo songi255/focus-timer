@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,6 +21,8 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void init() throws Exception {
+        Font.loadFont(getClass().getResourceAsStream("fonts/Helvetica.ttf"), 11);
+
         super.init();
     }
 

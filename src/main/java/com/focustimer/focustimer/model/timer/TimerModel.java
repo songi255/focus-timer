@@ -22,10 +22,15 @@ public class TimerModel {
     @SaveWithTemplate("2400") private double startTime;
     private double curTime;
 
+    private boolean isPomoMode = false;
+    @SaveWithTemplate("300") private double pomoMaxTime;
+    @SaveWithTemplate("300") private double pomoStartTime;
+
     @AfterDataInject
     public void afterLoadData(){
         setState(TimerState.READY);
         setCurTime(startTime);
+        setPomoMode(false);
     }
 
     public void registerStateObservers(TimerObserver...observers){

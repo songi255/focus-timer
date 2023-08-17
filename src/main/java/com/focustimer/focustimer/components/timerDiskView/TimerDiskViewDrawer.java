@@ -17,7 +17,7 @@ public class TimerDiskViewDrawer {
     private double canvasWidth;
     private double canvasHeight;
 
-    private double numRatio = 0.1;
+    private double numRatio = 0.15;
     private double scaleRatio = 0.1;
     private final Effect timerArcShadowEffect = new DropShadow();
 
@@ -85,7 +85,7 @@ public class TimerDiskViewDrawer {
         double canvasCenterY = canvasHeight / 2;
 
         double fontSize = canvasHeight * numRatio / 2;
-        Font font = new Font("Helvetica.ttf", fontSize);
+        Font font = new Font("Helvetica", fontSize);
 
         double radius = canvasWidth / 2 - fontSize / 2;
 
@@ -113,7 +113,7 @@ public class TimerDiskViewDrawer {
         gc.setTextBaseline(VPos.CENTER);
         gc.setFill(Paint.valueOf("black"));
         gc.setEffect(timerArcShadowEffect);
-        gc.setFont(new Font("Helvetica.ttf", fontSize));
+        gc.setFont(new Font("Helvetica", fontSize));
         gc.fillText(text, canvasWidth / 2, canvasHeight / 2);
 
         gc.restore();
