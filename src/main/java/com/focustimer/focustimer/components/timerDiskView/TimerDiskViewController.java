@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
 import java.net.URL;
@@ -32,6 +33,8 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         drawer.setGc(timerCanvas.getGraphicsContext2D());
 
         timerCanvas.widthProperty().addListener(obs -> drawTimer());
+        timerCanvas.setOnMouseClicked(this::canvasMouseHandler);
+        timerCanvas.setOnMouseDragged(this::canvasMouseHandler);
     }
 
     @Override
@@ -45,5 +48,18 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         drawer.drawScale();
         drawer.drawScaleNumber();
         drawer.drawGoal(timerModel.getGoalStr());
+    }
+
+    public void canvasMouseHandler(MouseEvent e){
+        Canvas canvas = timerCanvasContainer.getCanvas();
+        double centerX = canvas.getWidth() / 2;
+        double centerY = canvas.getHeight() / 2;
+        double mouseX = e.getX();
+        double mouseY = e.getY();
+
+        double degree = Math.atan2(-(mouseX - centerX), -(mouseY - centerY)) / Math.PI * 180;
+        if (degree < 0) degree += 360;
+        timerModel.setStartTime(timerModel.getMaxTime() * degree / 360);
+        timerModel.setCurTime(timerModel.getStartTime());
     }
 }
