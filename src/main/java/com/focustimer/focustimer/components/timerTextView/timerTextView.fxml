@@ -6,8 +6,8 @@
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.focustimer.focustimer.components.timerTextView.TimerTextViewController"
+            fx:id="timerTextViewContainer"
             stylesheets="@timerTextView.css"
-            prefHeight="400.0" prefWidth="600.0"
             alignment="CENTER">
     <Text fx:id="mainTimerTextView" />
     <Text fx:id="pomoTimerTextView" />

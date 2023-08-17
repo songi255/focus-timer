@@ -12,7 +12,6 @@
           stylesheets="@headerBar.css"
           styleClass="header-bar"
           maxWidth="Infinity"
-          minHeight="40"
           prefHeight="40.0">
     <columnConstraints>
         <ColumnConstraints prefWidth="60" />

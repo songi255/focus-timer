@@ -59,7 +59,13 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
 
         double degree = Math.atan2(-(mouseX - centerX), -(mouseY - centerY)) / Math.PI * 180;
         if (degree < 0) degree += 360;
-        timerModel.setStartTime(timerModel.getMaxTime() * degree / 360);
-        timerModel.setCurTime(timerModel.getStartTime());
+
+        if (timerModel.isPomoMode()){
+            timerModel.setPomoStartTime(timerModel.getMaxTime() * degree / 360);
+            timerModel.setCurTime(timerModel.getPomoStartTime());
+        } else {
+            timerModel.setStartTime(timerModel.getMaxTime() * degree / 360);
+            timerModel.setCurTime(timerModel.getStartTime());
+        }
     }
 }

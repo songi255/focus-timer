@@ -50,7 +50,7 @@ public class Application extends javafx.application.Application {
         rect.setArcWidth(30.0);
         scene.getRoot().setClip(rect);
 
-        //stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(true);
         stage.setAlwaysOnTop(true);
 

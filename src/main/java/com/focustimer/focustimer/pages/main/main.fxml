@@ -22,7 +22,9 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints vgrow="NEVER" />
-      <RowConstraints percentHeight="60" />
+      <RowConstraints vgrow="ALWAYS" />
+      <RowConstraints vgrow="NEVER" />
+      <RowConstraints vgrow="NEVER" />
    </rowConstraints>
 
    <fx:include fx:id="headerBar" source="../../components/headerBar/headerBar.fxml" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="10" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true" />

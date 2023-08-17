@@ -19,7 +19,9 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.stage.Screen;
 import javafx.stage.Window;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ServiceBean
 public class OverlayService extends Service<Void> {
     private final Settings settings;
@@ -118,17 +120,8 @@ public class OverlayService extends Service<Void> {
                     Thread.sleep(1000 / 60); // 60 fps
                 }
 
-//                Platform.runLater(() -> {
-//                    // FIXME : stage radius temp
-//                    Rectangle rect = new Rectangle(100,100);
-//                    rect.setArcHeight(60.0);
-//                    rect.setArcWidth(60.0);
-//                    timerArc.getScene().getRoot().setClip(rect);
-//                    timerArc.getScene().getRoot().setStyle("-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: white");
-//                });
-
                 isOverlayState = !isOverlayState;
-                System.out.println("overay finish");
+                log.info("overlay finished");
                 return null;
             }
         };
