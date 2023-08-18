@@ -21,6 +21,7 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void init() throws Exception {
+        System.setProperty("prism.lcdtext", "false");
         Font.loadFont(getClass().getResourceAsStream("fonts/Helvetica.ttf"), 11);
 
         super.init();

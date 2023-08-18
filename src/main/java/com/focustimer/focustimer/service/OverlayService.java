@@ -67,7 +67,13 @@ public class OverlayService extends Service<Void> {
     }
 
     public void unOverlay(){
-        if(!isOverlayState) return;
+        if (!isOverlayState)
+            if (isRunning()){
+                isOverlayState = true;
+                cancel();
+            }
+            else return;
+
         restart();
     }
 
