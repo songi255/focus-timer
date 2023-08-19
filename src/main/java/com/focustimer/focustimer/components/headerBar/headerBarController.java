@@ -31,7 +31,6 @@ public class headerBarController implements Initializable {
 
     @FXML public void btnCloseHandler(){
         Platform.exit();
-        System.exit(0);
     }
 
     @FXML public void btnMinimizeHandler(){

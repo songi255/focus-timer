@@ -62,11 +62,13 @@ public class TimerModel {
     }
 
     public void setCurTime(double time){
+        if (this.curTime == time) return;
         this.curTime = time;
         notifyTimeObservers();
     }
 
     public void setState(TimerState state) {
+        if (this.state == state) return;
         this.state = state;
         notifyStateObservers();
     }

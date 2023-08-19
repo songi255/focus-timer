@@ -16,11 +16,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Settings {
-    @Save("60") private double fps;
-    @Save("360") private double originalWidth;
-    @Save("480") private double originalXHeight;
-    @Save("0") private double originalX;
-    @Save("0") private double originalY;
 
 
 }

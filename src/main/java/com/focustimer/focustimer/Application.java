@@ -34,6 +34,7 @@ public class Application extends javafx.application.Application {
     public void stop() throws Exception {
         // clean resources(file, network,,,)
         super.stop();
+        System.exit(0); // AWT
     }
 
     @Override

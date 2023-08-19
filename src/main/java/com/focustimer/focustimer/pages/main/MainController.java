@@ -1,5 +1,6 @@
 package com.focustimer.focustimer.pages.main;
 
+import com.focustimer.focustimer.model.overlay.OverlayModel;
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
 import com.focustimer.focustimer.model.timer.TimerState;
@@ -12,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
@@ -33,12 +35,14 @@ public class MainController implements Initializable, TimerObserver {
     private final List<Node> hidingNodes = new Vector<>();
 
     private final TimerModel timerModel;
+    private final OverlayModel overlayModel;
     private final OverlayService overlayService;
 
     @Inject
-    public MainController(TimerModel timerModel, OverlayService overlayService) {
+    public MainController(TimerModel timerModel, OverlayModel overlayModel, OverlayService overlayService) {
         this.timerModel = timerModel;
         timerModel.registerStateObservers(this);
+        this.overlayModel = overlayModel;
         this.overlayService = overlayService;
     }
 
@@ -50,16 +54,19 @@ public class MainController implements Initializable, TimerObserver {
     @Override
     public void onTimerStateChanged() {
         TimerState state = timerModel.getState();
-        overlayService.setWindow(btnPrev.getScene().getWindow());
+
+        if (overlayModel.getStage() == null) {
+            overlayModel.setStage((Stage) btnPrev.getScene().getWindow());
+        }
 
         if (state == TimerState.RUNNING){
             log.info("overlay");
-            Platform.runLater(this::hideNodesExceptCanvas);
             overlayService.overlay();
+            Platform.runLater(this::hideNodesExceptCanvas);
         } else {
             log.info("unOverlay");
-            Platform.runLater(this::restoreNodesExceptCanvas);
             overlayService.unOverlay();
+            Platform.runLater(this::restoreNodesExceptCanvas);
         }
     }
 
