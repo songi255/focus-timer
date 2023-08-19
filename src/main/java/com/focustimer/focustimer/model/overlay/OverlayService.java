@@ -9,7 +9,7 @@
  * @author Dave Shin
  */
 
-package com.focustimer.focustimer.service;
+package com.focustimer.focustimer.model.overlay;
 
 import com.focustimer.focustimer.config.Settings;
 import com.focustimer.focustimer.config.autoscan.ServiceBean;
@@ -24,7 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ServiceBean
 public class OverlayService extends Service<Void> {
+    private final OverlayModel overlayModel;
     private final Settings settings;
+
     private Window stage;
     private final double RATIO = 0.075;
 
@@ -35,7 +37,11 @@ public class OverlayService extends Service<Void> {
     private double overlayXGap = 200;
     private double overlayYGap = 200;
 
-
+    @Inject
+    public OverlayService(OverlayModel overlayModel, Settings settings) {
+        this.overlayModel = overlayModel;
+        this.settings = settings;
+    }
 
     // TODO : link with DataManager
     private double originalWidth;
@@ -45,11 +51,6 @@ public class OverlayService extends Service<Void> {
     private double originalY;
 
     private boolean isOverlayState = false;
-
-    @Inject
-    public OverlayService(Settings settings) {
-        this.settings = settings;
-    }
 
     public void setWindow(Window window){
         this.stage = window;
@@ -141,5 +142,9 @@ public class OverlayService extends Service<Void> {
             }
         }
         return curScreen;
+    }
+
+    public boolean isOverlayState(){
+        return this.isOverlayState;
     }
 }

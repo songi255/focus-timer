@@ -1,7 +1,9 @@
 package com.focustimer.focustimer;
 
 import com.focustimer.focustimer.config.AppModule;
+import com.focustimer.focustimer.config.store.DataInjector;
 import com.focustimer.focustimer.config.store.TemplateModel;
+import com.focustimer.focustimer.utils.TrayNotification;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +25,7 @@ public class Application extends javafx.application.Application {
     public void init() throws Exception {
         System.setProperty("prism.lcdtext", "false");
         Font.loadFont(getClass().getResourceAsStream("fonts/Helvetica.ttf"), 11);
+        Font.loadFont(getClass().getResourceAsStream("fonts/Inter-Regular.ttf"), 11);
 
         super.init();
     }
@@ -55,11 +58,14 @@ public class Application extends javafx.application.Application {
         stage.setResizable(true);
         stage.setAlwaysOnTop(true);
 
+        stage.setTitle("Focus Timer");
         stage.setScene(scene);
         stage.show();
 
         // temp
-        injector.getInstance(TemplateModel.class).setTemplateNum(1);
+        injector.getInstance(DataInjector.class).injectAll();
+
+        TrayNotification.notifyTray("Test", "this is the test from Application.class");
     }
 
     public void addTrayIcon(){

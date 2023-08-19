@@ -1,5 +1,6 @@
 package com.focustimer.focustimer.components.timerDiskView;
 
+import com.focustimer.focustimer.model.timer.TimerState;
 import com.focustimer.focustimer.utils.CanvasPane;
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
@@ -51,6 +52,8 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
     }
 
     public void canvasMouseHandler(MouseEvent e){
+        if (timerModel.getState() == TimerState.RUNNING) return;
+
         Canvas canvas = timerCanvasContainer.getCanvas();
         double centerX = canvas.getWidth() / 2;
         double centerY = canvas.getHeight() / 2;
@@ -61,11 +64,12 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         if (degree < 0) degree += 360;
 
         if (timerModel.isPomoMode()){
-            timerModel.setPomoStartTime(timerModel.getMaxTime() * degree / 360);
+            timerModel.setPomoStartTime(timerModel.getPomoMaxTime() * degree / 360);
             timerModel.setCurTime(timerModel.getPomoStartTime());
         } else {
             timerModel.setStartTime(timerModel.getMaxTime() * degree / 360);
             timerModel.setCurTime(timerModel.getStartTime());
         }
+        timerModel.setState(TimerState.READY);
     }
 }

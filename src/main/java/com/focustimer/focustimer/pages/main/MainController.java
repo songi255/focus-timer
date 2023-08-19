@@ -3,7 +3,7 @@ package com.focustimer.focustimer.pages.main;
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
 import com.focustimer.focustimer.model.timer.TimerState;
-import com.focustimer.focustimer.service.OverlayService;
+import com.focustimer.focustimer.model.overlay.OverlayService;
 import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -87,5 +87,9 @@ public class MainController implements Initializable, TimerObserver {
         }
         GridPane.setColumnIndex(timerDiskView, 1);
         GridPane.setColumnSpan(timerDiskView, 8);
+    }
+
+    @FXML public void mainContainerClickHandler(){
+
     }
 }

@@ -7,8 +7,13 @@
 
 #btnPrev, #btnNext {
     -fx-background-color: none;
+    -fx-opacity: 0.3;
 }
 
 #btnPrev:hover, #btnNext:hover {
+    -fx-opacity: 1;
+}
 
+.btn:hover {
+    -fx-background-color: #D0D0D0;
 }

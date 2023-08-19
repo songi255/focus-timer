@@ -85,7 +85,7 @@ public class TimerDiskViewDrawer {
         double canvasCenterY = canvasHeight / 2;
 
         double fontSize = canvasHeight * numRatio / 2;
-        Font font = new Font("Helvetica", fontSize);
+        Font font = new Font("Inter", fontSize);
 
         double radius = canvasWidth / 2 - fontSize / 2;
 
@@ -105,7 +105,7 @@ public class TimerDiskViewDrawer {
 
     public void drawGoal(String text){
         double arcRatio = 1 - numRatio - scaleRatio;
-        double fontSize = canvasHeight * arcRatio / 3;
+        double fontSize = canvasHeight * arcRatio / 3 / 2;
 
         gc.save();
 
@@ -113,7 +113,7 @@ public class TimerDiskViewDrawer {
         gc.setTextBaseline(VPos.CENTER);
         gc.setFill(Paint.valueOf("black"));
         gc.setEffect(timerArcShadowEffect);
-        gc.setFont(new Font("Helvetica", fontSize));
+        gc.setFont(new Font("Inter", fontSize));
         gc.fillText(text, canvasWidth / 2, canvasHeight / 2);
 
         gc.restore();

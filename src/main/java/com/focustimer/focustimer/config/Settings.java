@@ -16,20 +16,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Settings {
-    private final DataInjector dataInjector;
-
-    @Save("60") private int fps;
-    @Save("0.2") private double overlayOpacity;
-    @Save("100") private double overlayWidth;
-    @Save("100") private double overlayHeight;
-    @Save("200") private double overlayXGap;
-    @Save("200") private double overlayYGap;
-
-    @Inject
-    public Settings(DataInjector dataInjector) {
-        this.dataInjector = dataInjector;
-        this.dataInjector.inject(this);
-    }
+    @Save("60") private double fps;
+    @Save("360") private double originalWidth;
+    @Save("480") private double originalXHeight;
+    @Save("0") private double originalX;
+    @Save("0") private double originalY;
 
 
 }

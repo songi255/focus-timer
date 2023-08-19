@@ -1,4 +1,4 @@
-package com.focustimer.focustimer.service;
+package com.focustimer.focustimer.model.timer;
 
 import com.focustimer.focustimer.config.autoscan.ServiceBean;
 import com.focustimer.focustimer.model.timer.TimerModel;

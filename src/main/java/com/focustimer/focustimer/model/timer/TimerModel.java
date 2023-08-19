@@ -17,7 +17,7 @@ public class TimerModel {
     private final List<TimerObserver> timeOserverList = new LinkedList<>();
 
     private TimerState state;
-    @SaveWithTemplate("goal") private String goalStr;
+    @SaveWithTemplate("Study") private String goalStr;
     @SaveWithTemplate("3600") private double maxTime;
     @SaveWithTemplate("2400") private double startTime;
     private double curTime;

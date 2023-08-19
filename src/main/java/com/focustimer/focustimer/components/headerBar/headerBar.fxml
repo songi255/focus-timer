@@ -12,14 +12,14 @@
           stylesheets="@headerBar.css"
           styleClass="header-bar"
           maxWidth="Infinity"
-          prefHeight="40.0">
+          prefHeight="36.0">
     <columnConstraints>
         <ColumnConstraints prefWidth="60" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
         <ColumnConstraints prefWidth="140" />
     </columnConstraints>
 
-    <Button styleClass="btn" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="RIGHT">
+    <Button fx:id="btnMenu" styleClass="btn" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="RIGHT" onAction="#btnMenuHandler">
         <graphic>
             <ImageView styleClass="btn-img" fitWidth="32" fitHeight="32" >
                 <Image url="@../../icons/menu.png"/>
@@ -30,21 +30,21 @@
     <Text fx:id="templateText" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
 
     <HBox GridPane.rowIndex="0" GridPane.columnIndex="2">
-        <Button styleClass="btn">
+        <Button fx:id="btnMinimize" styleClass="btn" onAction="#btnMinimizeHandler">
             <graphic>
                 <ImageView styleClass="btn-img" fitWidth="32" fitHeight="32">
                     <Image url="@../../icons/minimize.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Button styleClass="btn">
+        <Button fx:id="btnFullScreen" styleClass="btn" onAction="#btnFullScreenHandler">
             <graphic>
                 <ImageView styleClass="btn-img" fitWidth="32" fitHeight="32">
                     <Image url="@../../icons/full.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Button styleClass="btn">
+        <Button fx:id="btnClose" styleClass="btn" onAction="#btnCloseHandler">
             <graphic>
                 <ImageView styleClass="btn-img" fitWidth="32" fitHeight="32">
                     <Image url="@../../icons/close.png"/>
