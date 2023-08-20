@@ -8,9 +8,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Consumer;
 
+@Slf4j
 @Bean
 @Getter
 @Setter
@@ -36,10 +38,12 @@ public class OverlayModel {
     private final OverlayService overlayService = new OverlayService(this);
 
     public void overlay(){
+        log.info("overlay");
         overlayService.overlay();
     }
 
     public void unOverlay(){
+        log.info("unOverlay");
         overlayService.unOverlay();
     }
 

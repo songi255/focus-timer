@@ -76,11 +76,9 @@ public class MainController implements Initializable, TimerObserver {
         }
 
         if (state == TimerState.RUNNING){
-            log.info("overlay");
             overlayModel.overlay();
             Platform.runLater(this::hideNodesExceptCanvas);
         } else {
-            log.info("unOverlay");
             overlayModel.unOverlay();
             Platform.runLater(this::restoreNodesExceptCanvas);
         }
@@ -117,6 +115,14 @@ public class MainController implements Initializable, TimerObserver {
     }
 
     @FXML public void mainContainerClickHandler(){
-
+        if (timerModel.getState() != TimerState.RUNNING) return;
+        if (overlayModel.isServiceRunning()) overlayModel.getOverlayService().cancel();
+        if (overlayModel.isOverlayState()){
+            overlayModel.unOverlay();
+            restoreNodesExceptCanvas();
+        } else {
+            overlayModel.overlay();
+            hideNodesExceptCanvas();
+        }
     }
 }
