@@ -33,6 +33,15 @@ public class OverlayModel {
     private boolean isServiceRunning = false;
 
     private Stage stage;
+    private final OverlayService overlayService = new OverlayService(this);
+
+    public void overlay(){
+        overlayService.overlay();
+    }
+
+    public void unOverlay(){
+        overlayService.unOverlay();
+    }
 
     public void setStage(Stage stage) {
         this.stage = stage;

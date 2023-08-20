@@ -36,14 +36,12 @@ public class MainController implements Initializable, TimerObserver {
 
     private final TimerModel timerModel;
     private final OverlayModel overlayModel;
-    private final OverlayService overlayService;
 
     @Inject
-    public MainController(TimerModel timerModel, OverlayModel overlayModel, OverlayService overlayService) {
+    public MainController(TimerModel timerModel, OverlayModel overlayModel) {
         this.timerModel = timerModel;
         timerModel.registerStateObservers(this);
         this.overlayModel = overlayModel;
-        this.overlayService = overlayService;
     }
 
     @Override
@@ -61,11 +59,11 @@ public class MainController implements Initializable, TimerObserver {
 
         if (state == TimerState.RUNNING){
             log.info("overlay");
-            overlayService.overlay();
+            overlayModel.overlay();
             Platform.runLater(this::hideNodesExceptCanvas);
         } else {
             log.info("unOverlay");
-            overlayService.unOverlay();
+            overlayModel.unOverlay();
             Platform.runLater(this::restoreNodesExceptCanvas);
         }
     }

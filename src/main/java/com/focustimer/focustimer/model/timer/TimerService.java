@@ -7,12 +7,10 @@ import com.google.inject.Inject;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-@ServiceBean
 public class TimerService extends Service<Void> {
     private final TimerModel timerModel;
-    private final long INTERVAL = 1000 / 60; // 60fps
+    private final static long INTERVAL = (long) (1000.0 / 60.0); // 60fps
 
-    @Inject
     public TimerService(TimerModel timerModel) {
         this.timerModel = timerModel;
         this.setOnSucceeded(e -> {
@@ -41,8 +39,6 @@ public class TimerService extends Service<Void> {
             }
         };
     }
-
-
 
     public void startTimer(){
         TimerState state = timerModel.getState();

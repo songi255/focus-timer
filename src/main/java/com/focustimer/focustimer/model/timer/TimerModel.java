@@ -26,11 +26,25 @@ public class TimerModel {
     @SaveWithTemplate("300") private double pomoMaxTime;
     @SaveWithTemplate("300") private double pomoStartTime;
 
+    private final TimerService timerService = new TimerService(this);
+
     @AfterDataInject
     public void afterLoadData(){
         setState(TimerState.READY);
         setCurTime(startTime);
         setPomoMode(false);
+    }
+
+    public void startTimer(){
+        timerService.startTimer();
+    }
+
+    public void stopTimer(){
+        timerService.stopTimer();
+    }
+
+    public void pauseTimer(){
+        timerService.pauseTimer();
     }
 
     public void registerStateObservers(TimerObserver...observers){

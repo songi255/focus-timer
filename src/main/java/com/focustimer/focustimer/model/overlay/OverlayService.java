@@ -22,11 +22,9 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ServiceBean
 public class OverlayService extends Service<Void> {
     private final OverlayModel overlayModel;
 
-    @Inject
     public OverlayService(OverlayModel overlayModel) {
         this.overlayModel = overlayModel;
         this.runningProperty().addListener((obs, oldValue, newValue) -> {

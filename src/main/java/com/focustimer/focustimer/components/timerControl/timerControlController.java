@@ -16,16 +16,13 @@ import java.util.ResourceBundle;
 
 public class timerControlController implements Initializable, TimerObserver {
     private final TimerModel timerModel;
-    private final TimerService timerService;
 
     @FXML ImageView btnStartImg;
     @FXML ImageView btnStopImg;
 
     @Inject
-    public timerControlController(TimerModel timerModel, TimerService timerService) {
+    public timerControlController(TimerModel timerModel) {
         this.timerModel = timerModel;
-        this.timerService = timerService;
-
         this.timerModel.registerStateObservers(this);
     }
 
@@ -51,13 +48,13 @@ public class timerControlController implements Initializable, TimerObserver {
     @FXML private void handleStart(){
         TimerState state = timerModel.getState();
         if (state == TimerState.RUNNING){
-            timerService.pauseTimer();
+            timerModel.pauseTimer();
         } else {
-            timerService.startTimer();
+            timerModel.startTimer();
         }
     }
 
     @FXML private void handleStop(){
-        timerService.stopTimer();
+        timerModel.stopTimer();
     }
 }
