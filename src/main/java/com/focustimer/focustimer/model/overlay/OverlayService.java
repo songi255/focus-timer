@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.scene.Parent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,7 @@ public class OverlayService extends Service<Void> {
             @Override
             protected Void call() throws Exception {
                 Stage stage = overlayModel.getStage();
+                Parent root = stage.getScene().getRoot();
 
                 Screen curScreen = ScreenUtil.getCurScreen(stage);
                 double screenWidth = curScreen.getBounds().getWidth();

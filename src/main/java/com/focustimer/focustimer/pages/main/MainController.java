@@ -5,7 +5,11 @@ import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
 import com.focustimer.focustimer.model.timer.TimerState;
 import com.focustimer.focustimer.model.overlay.OverlayService;
+import com.focustimer.focustimer.utils.TrayNotification;
 import com.google.inject.Inject;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
@@ -47,6 +52,19 @@ public class MainController implements Initializable, TimerObserver {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hidingNodes.addAll(Arrays.asList(btnNext, btnPrev, headerBar, timerTextView, timerController));
+        mainContainer.hoverProperty().addListener((obs, oldValue, newValue) -> {
+            if (!overlayModel.isOverlayState()) return;
+            if (overlayModel.isServiceRunning()) return;
+
+            Stage stage = (Stage) mainContainer.getScene().getWindow();
+
+            Timeline timeline = new Timeline();
+            KeyValue keyValue = new KeyValue(stage.opacityProperty(), newValue ? 1 : overlayModel.getOverlayOpacity());
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(150),keyValue);
+            timeline.getKeyFrames().add(keyFrame);
+
+            timeline.play();
+        });
     }
 
     @Override
@@ -65,6 +83,10 @@ public class MainController implements Initializable, TimerObserver {
             log.info("unOverlay");
             overlayModel.unOverlay();
             Platform.runLater(this::restoreNodesExceptCanvas);
+        }
+
+        if (state == TimerState.FINISH){
+            TrayNotification.notifyTray("Time done", "test");
         }
     }
 

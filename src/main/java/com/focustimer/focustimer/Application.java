@@ -6,6 +6,7 @@ import com.focustimer.focustimer.config.store.TemplateModel;
 import com.focustimer.focustimer.utils.TrayNotification;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
