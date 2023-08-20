@@ -1,5 +1,6 @@
 package com.focustimer.focustimer.components.timerDiskView;
 
+import com.focustimer.focustimer.model.overlay.OverlayModel;
 import com.focustimer.focustimer.model.timer.TimerState;
 import com.focustimer.focustimer.utils.CanvasPane;
 import com.focustimer.focustimer.model.timer.TimerModel;
@@ -19,13 +20,15 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
     @FXML CanvasPane timerCanvasContainer;
 
     private final TimerModel timerModel;
+    private final OverlayModel overlayModel;
     private final TimerDiskViewDrawer drawer = new TimerDiskViewDrawer();
 
     @Inject
-    public TimerDiskViewController(TimerModel timerModel) {
+    public TimerDiskViewController(TimerModel timerModel, OverlayModel overlayModel) {
         this.timerModel = timerModel;
         this.timerModel.registerStateObservers(this);
         this.timerModel.registerTimeObserver(this);
+        this.overlayModel = overlayModel;
     }
 
     @Override
@@ -44,10 +47,25 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
     }
 
     public void drawTimer(){
+        double curTime = timerModel.getCurTime();
+        double maxTime = -1;
+        Paint color = null;
+
+        if (timerModel.isPomoMode()){
+            maxTime = timerModel.getPomoMaxTime();
+            color = Paint.valueOf("blue");
+        } else {
+            maxTime = timerModel.getMaxTime();
+            color = Paint.valueOf("D04E4E");
+        }
+
         drawer.clearCanvas();
-        drawer.drawArc(Paint.valueOf("D04E4E"), timerModel.getCurTime() / timerModel.getMaxTime() * 360);
-        drawer.drawScale();
-        drawer.drawScaleNumber();
+        drawer.drawArc(color, curTime / maxTime * 360);
+        drawer.drawMainScale();
+        if (!overlayModel.isOverlayState()) {
+            drawer.drawSubScale();
+            drawer.drawScaleNumber();
+        }
         drawer.drawGoal(timerModel.getGoalStr());
     }
 

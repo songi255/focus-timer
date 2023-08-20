@@ -13,7 +13,6 @@ import javafx.scene.text.TextAlignment;
 public class TimerDiskViewDrawer {
 
     private GraphicsContext gc;
-    private Canvas canvas;
     private double canvasWidth;
     private double canvasHeight;
 
@@ -23,7 +22,7 @@ public class TimerDiskViewDrawer {
 
     public void setGc(GraphicsContext gc) {
         this.gc = gc;
-        this.canvas = gc.getCanvas();
+        Canvas canvas = gc.getCanvas();
         this.canvasWidth = canvas.getWidth();
         this.canvasHeight = canvas.getHeight();
 
@@ -33,6 +32,14 @@ public class TimerDiskViewDrawer {
         canvas.heightProperty().addListener((obs, oldValue, newValue) -> {
             this.canvasHeight = (double) newValue;
         });
+    }
+
+    public void setNumRatio(double numRatio) {
+        this.numRatio = numRatio;
+    }
+
+    public void setScaleRatio(double scaleRatio) {
+        this.scaleRatio = scaleRatio;
     }
 
     public void clearCanvas(){
@@ -54,7 +61,7 @@ public class TimerDiskViewDrawer {
         gc.restore();
     }
 
-    public void drawScale(){
+    public void drawMainScale(){
         double gap = (canvasWidth * numRatio) / 2;
         double canvasCenterX = canvasWidth / 2;
         double canvasCenterY = canvasHeight / 2;
@@ -70,6 +77,18 @@ public class TimerDiskViewDrawer {
             gc.fillRect(canvasCenterX - (scaleThickness / 2), gap, scaleThickness, scaleLength);
         }
 
+        gc.restore();
+    }
+
+    public void drawSubScale(){
+        double gap = (canvasWidth * numRatio) / 2;
+        double canvasCenterX = canvasWidth / 2;
+        double canvasCenterY = canvasHeight / 2;
+        double scaleLength = canvasCenterX * (1 - numRatio) * scaleRatio;
+        double scaleThickness = scaleLength / 7.5;
+        gc.save();
+
+        gc.setFill(Paint.valueOf("black"));
         for (int i = 0; i < 12 * 5; i++) {
             gc.translate(canvasCenterX, canvasCenterY);
             gc.rotate(30 / 5);

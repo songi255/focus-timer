@@ -41,6 +41,7 @@ public class TimerTextViewController implements Initializable, TimerObserver {
 
     public void drawTimeString(){
         double curTime = timerModel.getCurTime();
+        if (curTime < 0) curTime = 0;
         int minute = (int)curTime / 60;
         int second = (int)curTime % 60;
 
