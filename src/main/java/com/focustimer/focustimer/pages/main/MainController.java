@@ -16,8 +16,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +43,13 @@ public class MainController implements Initializable, TimerObserver {
 
     private final TimerModel timerModel;
     private final OverlayModel overlayModel;
+
+    // mouse event
+    private boolean isDragged;
+    private boolean isResizing;
+    private double xOffset;
+    private double yOffset;
+
 
     @Inject
     public MainController(TimerModel timerModel, OverlayModel overlayModel) {
@@ -114,7 +123,14 @@ public class MainController implements Initializable, TimerObserver {
         GridPane.setColumnSpan(timerDiskView, 8);
     }
 
+    // mouse event handlers
+
     @FXML public void mainContainerClickHandler(){
+        if (isDragged || isResizing) {
+            isDragged = false;
+            isResizing = false;
+            return;
+        };
         if (timerModel.getState() != TimerState.RUNNING) return;
         if (overlayModel.isServiceRunning()) overlayModel.getOverlayService().cancel();
         if (overlayModel.isOverlayState()){
@@ -124,5 +140,20 @@ public class MainController implements Initializable, TimerObserver {
             overlayModel.overlay();
             hideNodesExceptCanvas();
         }
+    }
+
+    @FXML public void mainContainerDragHandler(MouseEvent e){
+        if (overlayModel.isServiceRunning()) return;
+        isDragged = true;
+        Window window = mainContainer.getScene().getWindow();
+        window.setX(e.getScreenX() - xOffset);
+        window.setY(e.getScreenY() - yOffset);
+    }
+
+    @FXML public void mainContainerPressHandler(MouseEvent e){
+        // FIXME
+        if (true) isResizing = false;
+        xOffset = e.getSceneX();
+        yOffset = e.getSceneY();
     }
 }

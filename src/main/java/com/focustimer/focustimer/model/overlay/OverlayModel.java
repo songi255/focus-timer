@@ -57,11 +57,11 @@ public class OverlayModel {
     }
 
     public void setOverlayXGapByX(double stageX){
-        setOverlayXGap(ScreenUtil.getCurScreen(stage).getBounds().getWidth() - stageX);
+        setOverlayXGap(ScreenUtil.getCurScreen(stage).getBounds().getWidth() - stageX - stage.getWidth());
     }
 
     public void setOverlayYGapByY(double stageY){
-        setOverlayXGap(ScreenUtil.getCurScreen(stage).getBounds().getHeight() - stageY);
+        setOverlayYGap(ScreenUtil.getCurScreen(stage).getBounds().getHeight() - stageY - stage.getHeight());
     }
 
     public void bindStage(){
