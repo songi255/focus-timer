@@ -34,9 +34,13 @@ public class timerControlController implements Initializable, TimerObserver {
     @Override
     public void onTimerStateChanged() {
         TimerState state = timerModel.getState();
-        if (state == TimerState.RUNNING){
+        if (state == TimerState.RUNNING) {
             Platform.runLater(() -> {
                 btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/pause.png").toExternalForm()));
+            });
+        } else if (state == TimerState.FINISH) {
+            Platform.runLater(() -> {
+                btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/restart.png").toExternalForm()));
             });
         } else {
             Platform.runLater(() -> {
@@ -47,8 +51,11 @@ public class timerControlController implements Initializable, TimerObserver {
 
     @FXML private void handleStart(){
         TimerState state = timerModel.getState();
-        if (state == TimerState.RUNNING){
+        if (state == TimerState.RUNNING) {
             timerModel.pauseTimer();
+        } else if (state == TimerState.FINISH) {
+            timerModel.setCurTime(timerModel.getStartTime());
+            timerModel.setState(TimerState.READY);
         } else {
             timerModel.startTimer();
         }
