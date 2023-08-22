@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.focustimer.focustimer.utils.CanvasPane?>
+<?import com.focustimer.focustimer.components.timerDiskView.CanvasPane?>
+<?import javafx.scene.control.TextField?>
 <CanvasPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.focustimer.focustimer.components.timerDiskView.TimerDiskViewController"

@@ -42,6 +42,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         Injector injector = Guice.createInjector(new AppModule());
+        injector.getInstance(DataInjector.class).injectAll();
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(injector::getInstance);
@@ -64,11 +65,6 @@ public class Application extends javafx.application.Application {
         stage.setTitle("Focus Timer");
         stage.setScene(scene);
         stage.show();
-
-        // temp
-        injector.getInstance(DataInjector.class).injectAll();
-
-        TrayNotification.notifyTray("Test", "this is the test from Application.class");
     }
 
     public void addTrayIcon(){

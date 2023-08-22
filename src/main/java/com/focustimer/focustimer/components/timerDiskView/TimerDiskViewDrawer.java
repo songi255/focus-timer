@@ -9,6 +9,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.ArcType;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import lombok.Getter;
+import lombok.Setter;
 
 public class TimerDiskViewDrawer {
 
@@ -16,8 +18,9 @@ public class TimerDiskViewDrawer {
     private double canvasWidth;
     private double canvasHeight;
 
-    private double numRatio = 0.15;
-    private double scaleRatio = 0.1;
+    @Getter @Setter private double numRatio = 0.15;
+
+    @Getter @Setter private double scaleRatio = 0.1;
     private final Effect timerArcShadowEffect = new DropShadow();
 
     public void setGc(GraphicsContext gc) {
@@ -32,14 +35,6 @@ public class TimerDiskViewDrawer {
         canvas.heightProperty().addListener((obs, oldValue, newValue) -> {
             this.canvasHeight = (double) newValue;
         });
-    }
-
-    public void setNumRatio(double numRatio) {
-        this.numRatio = numRatio;
-    }
-
-    public void setScaleRatio(double scaleRatio) {
-        this.scaleRatio = scaleRatio;
     }
 
     public void clearCanvas(){

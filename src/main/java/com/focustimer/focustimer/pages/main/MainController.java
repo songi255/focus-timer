@@ -126,6 +126,7 @@ public class MainController implements Initializable, TimerObserver {
     // mouse event handlers
 
     @FXML public void mainContainerClickHandler(){
+        mainContainer.requestFocus(); // unFocus other components
         if (isDragged || isResizing) {
             isDragged = false;
             isResizing = false;

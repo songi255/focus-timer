@@ -1,10 +1,16 @@
-package com.focustimer.focustimer.utils;
+package com.focustimer.focustimer.components.timerDiskView;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import lombok.Getter;
 
+@Getter
 public class CanvasPane extends Pane {
     private final Canvas canvas;
+    private final TextArea textArea;
+    private final Text wrapHelper = new Text();
 
     public CanvasPane(){
         this(0, 0);
@@ -12,11 +18,14 @@ public class CanvasPane extends Pane {
 
     public CanvasPane(double width, double height) {
         canvas = new Canvas(width, height);
-        getChildren().add(canvas);
-    }
+        textArea = new TextArea();
+        textArea.setWrapText(true);
+        textArea.setText("Study");
+        textArea.setStyle("-fx-background-color: none");
+        textArea.setMinSize(0, 0);
 
-    public Canvas getCanvas() {
-        return canvas;
+        getChildren().add(canvas);
+        getChildren().add(textArea);
     }
 
     @Override
@@ -36,6 +45,15 @@ public class CanvasPane extends Pane {
         canvas.setLayoutY(y);
         canvas.setWidth(w);
         canvas.setHeight(h);
-    }
 
+        wrapHelper.setFont(textArea.getFont());
+        wrapHelper.setText(textArea.getText());
+
+        final double wrappedWidth = wrapHelper.getLayoutBounds().getWidth();
+        final double wrappedHeight = wrapHelper.getLayoutBounds().getHeight();
+
+        textArea.setPrefSize(wrappedWidth + 40, wrappedHeight + 20);
+        textArea.setLayoutX(x + w / 2 - textArea.getPrefWidth() / 2);
+        textArea.setLayoutY(y + h / 2 - textArea.getPrefHeight() / 2);
+    }
 }
