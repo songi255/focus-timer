@@ -82,9 +82,13 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         if (timerModel.isPomoMode()){
             maxTime = timerModel.getPomoMaxTime();
             color = Paint.valueOf("4EA1D0");
+            drawer.setMainScaleCnt(5);
+            drawer.setSubScaleCnt(5 * 5);
         } else {
             maxTime = timerModel.getMaxTime();
             color = Paint.valueOf("D04E4E");
+            drawer.setMainScaleCnt(12);
+            drawer.setSubScaleCnt(12 * 5);
         }
 
         drawer.clearCanvas();
@@ -92,7 +96,7 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         drawer.drawMainScale();
         if (!overlayModel.isOverlayState()) {
             drawer.drawSubScale();
-            drawer.drawScaleNumber();
+            drawer.drawScaleNumber(maxTime);
         }
         // drawer.drawGoal(timerModel.getGoalStr());
     }

@@ -27,10 +27,11 @@ public class TimerTextViewController implements Initializable, TimerObserver {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mainTimerTextView.setFont(new Font("Helvetica", 40));
-        pomoTimerTextView.setFont(new Font("Helvetica", 20));
+        mainTimerTextView.setFont(new Font("Inter", 40));
+        pomoTimerTextView.setFont(new Font("Inter", 20));
 
         // temp
+        mainTimerTextView.setText("40:00");
         pomoTimerTextView.setText("05:00");
     }
 

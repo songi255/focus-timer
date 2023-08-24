@@ -26,7 +26,6 @@ public class Application extends javafx.application.Application {
     @Override
     public void init() throws Exception {
         System.setProperty("prism.lcdtext", "false");
-        Font.loadFont(getClass().getResourceAsStream("fonts/Helvetica.ttf"), 11);
         Font.loadFont(getClass().getResourceAsStream("fonts/Inter-Regular.ttf"), 11);
 
         super.init();
@@ -50,13 +49,6 @@ public class Application extends javafx.application.Application {
 
         Scene scene = new Scene(fxmlLoader.load(getClass().getResourceAsStream("pages/main/main.fxml")), APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT);
         scene.setFill(Color.TRANSPARENT);
-
-        Rectangle rect = new Rectangle();
-        rect.widthProperty().bind(scene.widthProperty());
-        rect.heightProperty().bind(scene.heightProperty());
-        rect.setArcHeight(30.0);
-        rect.setArcWidth(30.0);
-        scene.getRoot().setClip(rect);
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(true);

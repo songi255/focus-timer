@@ -23,6 +23,10 @@ public class TimerDiskViewDrawer {
     @Getter @Setter private double scaleRatio = 0.1;
     private final Effect timerArcShadowEffect = new DropShadow();
 
+    @Getter @Setter private int mainScaleCnt;
+    @Getter @Setter private int subScaleCnt;
+
+
     public void setGc(GraphicsContext gc) {
         this.gc = gc;
         Canvas canvas = gc.getCanvas();
@@ -44,9 +48,9 @@ public class TimerDiskViewDrawer {
     public void drawArc(Paint color, double degree){
         double arcRatio = 1 - numRatio - scaleRatio;
         gc.save();
+        gc.setFill(color);
 
         gc.setEffect(timerArcShadowEffect);
-        gc.setFill(color);
         double arcWidth = canvasWidth * arcRatio;
         double arcHeight = canvasHeight * arcRatio;
         double xGap = (canvasWidth - arcWidth) / 2;
@@ -60,14 +64,19 @@ public class TimerDiskViewDrawer {
         double gap = (canvasWidth * numRatio) / 2;
         double canvasCenterX = canvasWidth / 2;
         double canvasCenterY = canvasHeight / 2;
-        double scaleLength = canvasCenterX * (1 - numRatio) * scaleRatio;
-        double scaleThickness = scaleLength / 7.5;
+        double scaleLength = canvasCenterX * (1 - numRatio) * scaleRatio * 0.8;
+        double scaleThickness = scaleLength / 5;
+        gap += scaleLength * 0.1;
+
+        int scaleCnt = getMainScaleCnt();
+        double degree = 360.0 / scaleCnt;
+
         gc.save();
 
         gc.setFill(Paint.valueOf("black"));
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < scaleCnt; i++) {
             gc.translate(canvasCenterX, canvasCenterY);
-            gc.rotate(30);
+            gc.rotate(degree);
             gc.translate(-canvasCenterX, -canvasCenterY);
             gc.fillRect(canvasCenterX - (scaleThickness / 2), gap, scaleThickness, scaleLength);
         }
@@ -81,22 +90,36 @@ public class TimerDiskViewDrawer {
         double canvasCenterY = canvasHeight / 2;
         double scaleLength = canvasCenterX * (1 - numRatio) * scaleRatio;
         double scaleThickness = scaleLength / 7.5;
+
+        int scaleCnt = getSubScaleCnt();
+        double degree = 360.0 / scaleCnt;
+        int mainScaleCnt = getMainScaleCnt();
+        int scaleCntPerMain = scaleCnt / mainScaleCnt;
+
         gc.save();
 
         gc.setFill(Paint.valueOf("black"));
-        for (int i = 0; i < 12 * 5; i++) {
+        for (int i = 0; i < scaleCnt; i++) {
             gc.translate(canvasCenterX, canvasCenterY);
-            gc.rotate(30 / 5);
+            gc.rotate(degree);
             gc.translate(-canvasCenterX, -canvasCenterY);
+
+            if (((i + 1) % scaleCntPerMain) == 0) continue;
+
             gc.fillRect(canvasCenterX - (scaleThickness / 2), gap, 2, scaleLength / 3 * 2);
         }
 
         gc.restore();
     }
 
-    public void drawScaleNumber(){
+    public void drawScaleNumber(double maxTime){
         double canvasCenterX = canvasWidth / 2;
         double canvasCenterY = canvasHeight / 2;
+
+        int scaleCnt = getMainScaleCnt();
+        int max = (int)maxTime / 60;
+        int gap = max / scaleCnt;
+        double degree = 360.0 / scaleCnt;
 
         double fontSize = canvasHeight * numRatio / 2;
         Font font = new Font("Inter", fontSize);
@@ -110,9 +133,9 @@ public class TimerDiskViewDrawer {
         gc.setTextAlign(TextAlignment.CENTER);
 
         gc.setFill(Paint.valueOf("black"));
-        for (int i = 0; i < 12; i++) {
-            double radian = Math.PI * i * 30 / 180;
-            gc.fillText(String.valueOf(i * 5), canvasCenterX - Math.sin(radian) * radius, canvasCenterY - Math.cos(radian) * radius);
+        for (int i = 0; i < scaleCnt; i++) {
+            double radian = Math.PI * i * degree / 180;
+            gc.fillText(String.valueOf(i * gap), canvasCenterX - Math.sin(radian) * radius, canvasCenterY - Math.cos(radian) * radius);
         }
         gc.restore();
     }
