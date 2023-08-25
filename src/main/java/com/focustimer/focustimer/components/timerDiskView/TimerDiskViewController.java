@@ -82,8 +82,8 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         if (timerModel.isPomoMode()){
             maxTime = timerModel.getPomoMaxTime();
             color = Paint.valueOf("4EA1D0");
-            drawer.setMainScaleCnt(5);
-            drawer.setSubScaleCnt(5 * 5);
+            drawer.setMainScaleCnt(12);
+            drawer.setSubScaleCnt(12 * 5);
         } else {
             maxTime = timerModel.getMaxTime();
             color = Paint.valueOf("D04E4E");
@@ -122,6 +122,9 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
 
         double degree = Math.atan2(-dx, -dy) / Math.PI * 180;
         if (degree < 0) degree += 360;
+
+        double snapDegree = 360.0 / drawer.getSubScaleCnt();
+        degree = (int)((degree + snapDegree / 2) / snapDegree) * snapDegree;
 
         if (timerModel.isPomoMode()){
             timerModel.setPomoStartTime(timerModel.getPomoMaxTime() * degree / 360);

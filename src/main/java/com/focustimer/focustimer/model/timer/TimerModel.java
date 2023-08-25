@@ -23,7 +23,7 @@ public class TimerModel {
     private double curTime;
 
     private boolean isPomoMode = false;
-    @SaveWithTemplate("300") private double pomoMaxTime;
+    @SaveWithTemplate("3600") private double pomoMaxTime;
     @SaveWithTemplate("300") private double pomoStartTime;
 
     private final TimerService timerService = new TimerService(this);
