@@ -13,8 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 public class TimerModel {
-    private final List<TimerObserver> stateOserverList = new LinkedList<>();
-    private final List<TimerObserver> timeOserverList = new LinkedList<>();
+    private final List<TimerObserver> stateObserverList = new LinkedList<>();
+    private final List<TimerObserver> timeObserverList = new LinkedList<>();
+    private final List<TimerObserver> modeObserverList = new LinkedList<>();
 
     private TimerState state;
     @SaveWithTemplate("Study") private String goalStr;
@@ -48,32 +49,47 @@ public class TimerModel {
     }
 
     public void registerStateObservers(TimerObserver...observers){
-        this.stateOserverList.addAll(List.of(observers));
+        this.stateObserverList.addAll(List.of(observers));
     }
 
     public void removeStateObservers(TimerObserver...observers){
-        this.stateOserverList.removeAll(List.of(observers));
+        this.stateObserverList.removeAll(List.of(observers));
     }
 
     private void notifyStateObservers(){
-        for(TimerObserver observer : this.stateOserverList){
+        for(TimerObserver observer : this.stateObserverList){
             observer.onTimerStateChanged();
         }
     }
 
     public void registerTimeObserver(TimerObserver...observers){
-        this.timeOserverList.addAll(List.of(observers));
+        this.timeObserverList.addAll(List.of(observers));
     }
 
     public void removeTimeObserver(TimerObserver...observers){
-        this.timeOserverList.removeAll(List.of(observers));
+        this.timeObserverList.removeAll(List.of(observers));
     }
 
     private void notifyTimeObservers(){
-        for(TimerObserver observer : this.timeOserverList){
+        for(TimerObserver observer : this.timeObserverList){
             observer.onTimerTimeChanged();
         }
     }
+
+    public void registerModeObserver(TimerObserver...observers){
+        this.modeObserverList.addAll(List.of(observers));
+    }
+
+    public void removeModeObserver(TimerObserver...observers){
+        this.modeObserverList.removeAll(List.of(observers));
+    }
+
+    private void notifyModeObservers(){
+        for(TimerObserver observer : this.modeObserverList){
+            observer.onTimerModeChanged();
+        }
+    }
+
 
     public void setCurTime(double time){
         if (this.curTime == time) return;
@@ -85,5 +101,11 @@ public class TimerModel {
         if (this.state == state) return;
         this.state = state;
         notifyStateObservers();
+    }
+
+    public void setPomoMode(boolean isPomoMode) {
+        if (this.isPomoMode == isPomoMode) return;
+        this.isPomoMode = isPomoMode;
+        notifyModeObservers();
     }
 }

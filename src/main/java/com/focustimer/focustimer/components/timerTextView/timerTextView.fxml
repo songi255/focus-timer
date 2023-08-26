@@ -9,6 +9,16 @@
             fx:id="timerTextViewContainer"
             stylesheets="@timerTextView.css"
             alignment="CENTER">
-    <Text fx:id="mainTimerTextView" />
-    <Text fx:id="pomoTimerTextView" />
+    <HBox fx:id="mainTimerTextBox" alignment="CENTER">
+        <Text fx:id="mainTimerMinute" />
+        <Text fx:id="mainTimerColon" text=":" />
+        <Text fx:id="mainTimerSecond" />
+    </HBox>
+
+    <HBox fx:id="pomoTimerTextBox" alignment="CENTER">
+        <Text fx:id="pomoTimerMinute" />
+        <Text fx:id="pomoTimerColon" text=":" />
+        <Text fx:id="pomoTimerSecond" />
+    </HBox>
+
 </VBox>
