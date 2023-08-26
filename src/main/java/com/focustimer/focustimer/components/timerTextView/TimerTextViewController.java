@@ -2,11 +2,15 @@ package com.focustimer.focustimer.components.timerTextView;
 
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
+import com.focustimer.focustimer.model.timer.TimerState;
 import com.google.inject.Inject;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
@@ -44,6 +48,11 @@ public class TimerTextViewController implements Initializable, TimerObserver {
         drawPomoTime(timerModel.getPomoStartTime());
 
         // scroll listner
+        mainTimerMinute.setOnScroll(getScrollHandler(false, true));
+        mainTimerSecond.setOnScroll(getScrollHandler(false, false));
+
+        pomoTimerMinute.setOnScroll(getScrollHandler(true, true));
+        pomoTimerSecond.setOnScroll(getScrollHandler(true, false));
     }
 
     @Override
@@ -67,6 +76,32 @@ public class TimerTextViewController implements Initializable, TimerObserver {
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(300));
 
         Platform.runLater(this::drawTimeString);
+    }
+
+    public EventHandler<ScrollEvent> getScrollHandler(boolean isPomo, boolean isMinute){
+        return new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent mouseEvent) {
+                if (timerModel.isPomoMode() != isPomo) return;
+                if (timerModel.getState() != TimerState.READY) return;
+
+                boolean isUp = mouseEvent.getDeltaY() > 0;
+                double d = isMinute ? 60 : 1;
+                d *= (isUp ? 1 : -1);
+
+                double next = 0;
+                if (isPomo) {
+                    next = timerModel.getPomoStartTime() + d;
+                    if (next < 0 || next > timerModel.getPomoMaxTime()) return;
+                    timerModel.setPomoStartTime(next);
+                } else {
+                    next = timerModel.getStartTime() + d;
+                    if (next < 0 || next > timerModel.getMaxTime()) return;
+                    timerModel.setStartTime(next);
+                }
+                timerModel.setCurTime(next);
+            }
+        };
     }
 
     public void drawTimeString(){
