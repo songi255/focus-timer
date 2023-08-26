@@ -132,7 +132,7 @@ public class MainController implements Initializable, TimerObserver {
             isDragged = false;
             isResizing = false;
             return;
-        };
+        }
         if (timerModel.getState() != TimerState.RUNNING) return;
         if (overlayModel.isServiceRunning()) overlayModel.getOverlayService().cancel();
         if (overlayModel.isOverlayState()){

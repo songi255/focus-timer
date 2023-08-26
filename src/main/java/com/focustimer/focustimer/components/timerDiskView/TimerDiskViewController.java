@@ -80,7 +80,7 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         TextArea textArea = timerCanvasContainer.getTextArea();
         double curTime = timerModel.getCurTime();
         double maxTime = -1;
-        Paint color = null;
+        Paint color;
 
         if (timerModel.isPomoMode()){
             maxTime = timerModel.getPomoMaxTime();

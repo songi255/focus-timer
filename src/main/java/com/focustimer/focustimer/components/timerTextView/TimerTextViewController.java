@@ -85,7 +85,7 @@ public class TimerTextViewController implements Initializable, TimerObserver {
     }
 
     private EventHandler<ScrollEvent> getScrollHandler(boolean isPomo, boolean isMinute){
-        return new EventHandler<ScrollEvent>() {
+        return new EventHandler<>() {
             @Override
             public void handle(ScrollEvent mouseEvent) {
                 TimerState state = timerModel.getState();
@@ -95,7 +95,7 @@ public class TimerTextViewController implements Initializable, TimerObserver {
                 double d = isMinute ? 60 : 1;
                 d *= (isUp ? 1 : -1);
 
-                double next = 0;
+                double next;
                 if (isPomo) {
                     next = timerModel.getPomoStartTime() + d;
                     if (next < 0 || next > timerModel.getPomoMaxTime()) return;
