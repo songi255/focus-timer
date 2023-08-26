@@ -1,8 +1,8 @@
 package com.focustimer.focustimer.model.timer;
 
 public interface TimerObserver {
-    public default void onTimerStateChanged(){};
-    public default void onTimerTimeChanged(){};
+    default void onTimerStateChanged(){}
+    default void onTimerTimeChanged(){}
 
-    public default void onTimerModeChanged(){};
+    default void onTimerModeChanged(){}
 }

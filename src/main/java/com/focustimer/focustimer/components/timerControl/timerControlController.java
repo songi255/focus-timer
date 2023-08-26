@@ -2,7 +2,6 @@ package com.focustimer.focustimer.components.timerControl;
 
 import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
-import com.focustimer.focustimer.model.timer.TimerService;
 import com.focustimer.focustimer.model.timer.TimerState;
 import com.google.inject.Inject;
 import javafx.application.Platform;
@@ -35,17 +34,11 @@ public class timerControlController implements Initializable, TimerObserver {
     public void onTimerStateChanged() {
         TimerState state = timerModel.getState();
         if (state == TimerState.RUNNING) {
-            Platform.runLater(() -> {
-                btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/pause.png").toExternalForm()));
-            });
+            Platform.runLater(() -> btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/pause.png").toExternalForm())));
         } else if (state == TimerState.FINISH) {
-            Platform.runLater(() -> {
-                btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/restart.png").toExternalForm()));
-            });
+            Platform.runLater(() -> btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/restart.png").toExternalForm())));
         } else {
-            Platform.runLater(() -> {
-                btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/play.png").toExternalForm()));
-            });
+            Platform.runLater(() -> btnStartImg.setImage(new Image(getClass().getResource("/com/focustimer/focustimer/icons/play.png").toExternalForm())));
         }
     }
 

@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -26,9 +25,7 @@ public class headerBarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //templateText.setFont(new Font("Inter", 20));
-        // temp
-        //templateText.setText(templateText.getText());
+        templateText.setText(templateModel.getTemplateName());
         templateText.setVisible(false);
         btnMenu.setVisible(false);
     }

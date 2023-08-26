@@ -74,7 +74,7 @@ public class OverlayModel {
     }
 
     private ChangeListener<Number> getCallback(Consumer<Double> originalSetter, Consumer<Double> overlaySetter){
-        return new ChangeListener<Number>() {
+        return new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 if (isServiceRunning()) return;

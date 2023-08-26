@@ -1,9 +1,5 @@
 package com.focustimer.focustimer.model.timer;
 
-import com.focustimer.focustimer.config.autoscan.ServiceBean;
-import com.focustimer.focustimer.model.timer.TimerModel;
-import com.focustimer.focustimer.model.timer.TimerState;
-import com.google.inject.Inject;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -43,15 +39,15 @@ public class TimerService extends Service<Void> {
 
     @Override
     protected Task<Void> createTask() {
-        return new Task<Void>() {
+        return new Task<>() {
             @Override
             protected Void call() throws Exception {
                 long startTime = System.currentTimeMillis();
                 double startSec = timerModel.getCurTime();
                 double passedTime = 0;
 
-                while(passedTime < startSec){
-                    passedTime = (System.currentTimeMillis() - startTime) / 1000.0 * 100;
+                while (passedTime < startSec) {
+                    passedTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     timerModel.setCurTime(startSec - passedTime);
 
                     Thread.sleep(INTERVAL);
@@ -68,7 +64,7 @@ public class TimerService extends Service<Void> {
             restart();
             timerModel.setState(TimerState.RUNNING);
         }
-    };
+    }
 
     public void stopTimer(){
         TimerState state = timerModel.getState();
@@ -77,7 +73,7 @@ public class TimerService extends Service<Void> {
             timerModel.setCurTime(timerModel.getStartTime());
             timerModel.setState(TimerState.STOP);
         }
-    };
+    }
 
     public void pauseTimer(){
         TimerState state = timerModel.getState();
@@ -85,5 +81,5 @@ public class TimerService extends Service<Void> {
             cancel();
             timerModel.setState(TimerState.PAUSE);
         }
-    };
+    }
 }

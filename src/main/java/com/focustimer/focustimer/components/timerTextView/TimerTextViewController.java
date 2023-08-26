@@ -4,7 +4,6 @@ import com.focustimer.focustimer.model.timer.TimerModel;
 import com.focustimer.focustimer.model.timer.TimerObserver;
 import com.focustimer.focustimer.model.timer.TimerState;
 import com.google.inject.Inject;
-import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -83,8 +81,6 @@ public class TimerTextViewController implements Initializable, TimerObserver {
 
     @Override
     public void onTimerTimeChanged() {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(300));
-
         Platform.runLater(this::updateText);
     }
 
