@@ -9,11 +9,10 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -44,8 +43,10 @@ public class TimerTextViewController implements Initializable, TimerObserver {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        drawMainTime(timerModel.getStartTime());
-        drawPomoTime(timerModel.getPomoStartTime());
+        setMainFont(new Font("Inter", 40), Paint.valueOf("black"));
+        setMainText(timerModel.getStartTime());
+        setPomoFont(new Font("Inter", 20), Paint.valueOf("D9D9D9"));
+        setPomoText(timerModel.getPomoStartTime());
 
         // scroll listner
         mainTimerMinute.setOnScroll(getScrollHandler(false, true));
@@ -57,33 +58,36 @@ public class TimerTextViewController implements Initializable, TimerObserver {
 
     @Override
     public void onTimerModeChanged() {
-        if (timerModel.isPomoMode()){
-            drawMainTime(timerModel.getStartTime());
-            // colon dimer
-            // transition
-        } else {
-            drawPomoTime(timerModel.getPomoStartTime());
-        }
-    }
-
-    @Override
-    public void onTimerStateChanged() {
-
+        Font smallFont = new Font("Inter", 20);
+        Font bigFont = new Font("Inter", 40);
+        Paint smallColor = Paint.valueOf("D9D9D9");
+        Paint bigColor = Paint.valueOf("black");
+        Platform.runLater(() -> {
+            if (timerModel.isPomoMode()){
+                setMainFont(smallFont, smallColor);
+                setPomoFont(bigFont, bigColor);
+                setMainText(timerModel.getStartTime());
+            } else {
+                setMainFont(bigFont, bigColor);
+                setPomoFont(smallFont, smallColor);
+                setPomoText(timerModel.getPomoStartTime());
+            }
+        });
     }
 
     @Override
     public void onTimerTimeChanged() {
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(300));
 
-        Platform.runLater(this::drawTimeString);
+        Platform.runLater(this::updateText);
     }
 
-    public EventHandler<ScrollEvent> getScrollHandler(boolean isPomo, boolean isMinute){
+    private EventHandler<ScrollEvent> getScrollHandler(boolean isPomo, boolean isMinute){
         return new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent mouseEvent) {
-                if (timerModel.isPomoMode() != isPomo) return;
-                if (timerModel.getState() != TimerState.READY) return;
+                TimerState state = timerModel.getState();
+                if (!(state == TimerState.READY || state == TimerState.STOP || state == TimerState.FINISH)) return;
 
                 boolean isUp = mouseEvent.getDeltaY() > 0;
                 double d = isMinute ? 60 : 1;
@@ -94,32 +98,54 @@ public class TimerTextViewController implements Initializable, TimerObserver {
                     next = timerModel.getPomoStartTime() + d;
                     if (next < 0 || next > timerModel.getPomoMaxTime()) return;
                     timerModel.setPomoStartTime(next);
+                    setPomoText(next);
                 } else {
                     next = timerModel.getStartTime() + d;
                     if (next < 0 || next > timerModel.getMaxTime()) return;
                     timerModel.setStartTime(next);
+                    setMainText(next);
                 }
-                timerModel.setCurTime(next);
+                if (timerModel.isPomoMode() == isPomo) {
+                    timerModel.setCurTime(next);
+                }
             }
         };
     }
 
-    public void drawTimeString(){
+    public void updateText(){
         if (timerModel.isPomoMode()){
-            drawPomoTime(timerModel.getCurTime());
+            setPomoText(timerModel.getCurTime());
         } else {
-            drawMainTime(timerModel.getCurTime());
+            setMainText(timerModel.getCurTime());
         }
     }
 
-    public void drawMainTime(double time){
+    public void setMainText(double time){
         mainTimerMinute.setText(formatTimeString(getMinute(time)));
         mainTimerSecond.setText(formatTimeString(getSecond(time)));
     }
 
-    public void drawPomoTime(double time){
+    public void setMainFont(Font font, Paint color){
+        mainTimerMinute.setFont(font);
+        mainTimerMinute.setFill(color);
+        mainTimerColon.setFont(font);
+        mainTimerColon.setFill(color);
+        mainTimerSecond.setFont(font);
+        mainTimerSecond.setFill(color);
+    }
+
+    public void setPomoText(double time){
         pomoTimerMinute.setText(formatTimeString(getMinute(time)));
         pomoTimerSecond.setText(formatTimeString(getSecond(time)));
+    }
+
+    public void setPomoFont(Font font, Paint color){
+        pomoTimerMinute.setFont(font);
+        pomoTimerMinute.setFill(color);
+        pomoTimerColon.setFont(font);
+        pomoTimerColon.setFill(color);
+        pomoTimerSecond.setFont(font);
+        pomoTimerSecond.setFill(color);
     }
 
     public int getMinute(double time){

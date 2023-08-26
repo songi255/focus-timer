@@ -14,7 +14,7 @@ public class TimerService extends Service<Void> {
     public TimerService(TimerModel timerModel) {
         this.timerModel = timerModel;
         this.setOnSucceeded(e -> {
-            if (timerModel.getPomoStartTime() != 0){ // if pomodoro mode is set
+            if (timerModel.getPomoStartTime() > 0){ // if pomodoro mode is set
                 if (timerModel.isPomoMode()) {
                     timerModel.setCurTime(0);
                     timerModel.setState(TimerState.FINISH);
@@ -29,8 +29,14 @@ public class TimerService extends Service<Void> {
                     timerModel.setState(TimerState.READY);
                 }
             } else {
-                timerModel.setCurTime(0);
-                timerModel.setState(TimerState.FINISH);
+                if (timerModel.isPomoMode()){
+                    timerModel.setPomoMode(false);
+                    timerModel.setCurTime(timerModel.getStartTime());
+                    timerModel.setState(TimerState.READY);
+                } else {
+                    timerModel.setCurTime(0);
+                    timerModel.setState(TimerState.FINISH);
+                }
             }
         });
     }

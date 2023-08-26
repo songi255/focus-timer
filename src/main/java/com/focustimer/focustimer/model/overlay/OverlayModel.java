@@ -38,11 +38,13 @@ public class OverlayModel {
     private final OverlayService overlayService = new OverlayService(this);
 
     public void overlay(){
+        if (stage.isFullScreen()) return;
         log.info("overlay");
         overlayService.overlay();
     }
 
     public void unOverlay(){
+        if (stage.isFullScreen()) return;
         log.info("unOverlay");
         overlayService.unOverlay();
     }

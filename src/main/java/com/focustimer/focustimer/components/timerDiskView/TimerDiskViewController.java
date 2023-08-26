@@ -57,6 +57,9 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
                 timerModel.setGoalStr(newValue);
             }
         });
+        textArea.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if (timerModel.getState() != TimerState.READY) timerCanvasContainer.requestFocus();
+        });
     }
 
     @Override

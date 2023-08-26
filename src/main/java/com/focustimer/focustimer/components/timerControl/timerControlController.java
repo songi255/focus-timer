@@ -54,7 +54,12 @@ public class timerControlController implements Initializable, TimerObserver {
         if (state == TimerState.RUNNING) {
             timerModel.pauseTimer();
         } else if (state == TimerState.FINISH) {
-            timerModel.setCurTime(timerModel.getStartTime());
+            if (timerModel.isPomoMode()){
+                timerModel.setCurTime(timerModel.getPomoStartTime());
+            } else {
+                timerModel.setCurTime(timerModel.getStartTime());
+            }
+
             timerModel.setState(TimerState.READY);
         } else {
             timerModel.startTimer();
