@@ -78,6 +78,7 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
     }
 
     public void drawTimer(){
+        TextArea textArea = timerCanvasContainer.getTextArea();
         double curTime = timerModel.getCurTime();
         double maxTime = -1;
         Paint color = null;
@@ -100,8 +101,14 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
         if (!overlayModel.isOverlayState()) {
             drawer.drawSubScale();
             drawer.drawScaleNumber(maxTime);
+            textArea.setVisible(true);
+            textArea.setManaged(true);
+        } else {
+            textArea.setVisible(false);
+            textArea.setManaged(false);
+            drawer.drawGoal(timerModel.getGoalStr());
         }
-        // drawer.drawGoal(timerModel.getGoalStr());
+        //
     }
 
     public void canvasMouseHandler(MouseEvent e){

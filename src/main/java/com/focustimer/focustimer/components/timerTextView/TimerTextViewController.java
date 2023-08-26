@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
@@ -47,6 +48,11 @@ public class TimerTextViewController implements Initializable, TimerObserver {
         setMainText(timerModel.getStartTime());
         setPomoFont(new Font("Inter", 20), Paint.valueOf("D9D9D9"));
         setPomoText(timerModel.getPomoStartTime());
+
+        mainTimerMinute.setCursor(Cursor.V_RESIZE);
+        mainTimerSecond.setCursor(Cursor.V_RESIZE);
+        pomoTimerMinute.setCursor(Cursor.V_RESIZE);
+        pomoTimerSecond.setCursor(Cursor.V_RESIZE);
 
         // scroll listner
         mainTimerMinute.setOnScroll(getScrollHandler(false, true));

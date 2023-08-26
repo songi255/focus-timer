@@ -20,7 +20,7 @@ public class TimerModel {
     private TimerState state;
     @SaveWithTemplate("Study") private String goalStr;
     @SaveWithTemplate("3600") private double maxTime;
-    @SaveWithTemplate("2400") private double startTime;
+    @SaveWithTemplate("1500") private double startTime;
     private double curTime;
 
     private boolean isPomoMode = false;

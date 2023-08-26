@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -60,7 +61,9 @@ public class MainController implements Initializable, TimerObserver {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        hidingNodes.addAll(Arrays.asList(btnNext, btnPrev, headerBar, timerTextView, timerController));
+        btnNext.setVisible(false);
+        btnPrev.setVisible(false);
+        hidingNodes.addAll(Arrays.asList(headerBar, timerTextView, timerController));
         mainContainer.hoverProperty().addListener((obs, oldValue, newValue) -> {
             if (!overlayModel.isOverlayState()) return;
             if (overlayModel.isServiceRunning()) return;
@@ -152,7 +155,6 @@ public class MainController implements Initializable, TimerObserver {
     }
 
     @FXML public void mainContainerPressHandler(MouseEvent e){
-        // FIXME
         if (true) isResizing = false;
         xOffset = e.getSceneX();
         yOffset = e.getSceneY();

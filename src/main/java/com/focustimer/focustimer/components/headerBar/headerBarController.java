@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class headerBarController implements Initializable {
     @FXML Text templateText;
+    @FXML Button btnMenu;
 
     private final TemplateModel templateModel;
 
@@ -24,9 +26,11 @@ public class headerBarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        templateText.setFont(new Font("Inter", 20));
+        //templateText.setFont(new Font("Inter", 20));
         // temp
-        templateText.setText("Template-1");
+        //templateText.setText(templateText.getText());
+        templateText.setVisible(false);
+        btnMenu.setVisible(false);
     }
 
     @FXML public void btnCloseHandler(){

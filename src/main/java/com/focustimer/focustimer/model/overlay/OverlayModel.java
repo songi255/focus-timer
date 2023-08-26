@@ -21,8 +21,8 @@ public class OverlayModel {
     public final static double RATIO = 0.075;
 
     @Save("0.2") private double overlayOpacity;
-    @Save("100") private double overlayWidth;
-    @Save("100") private double overlayHeight;
+    @Save("140") private double overlayWidth;
+    @Save("140") private double overlayHeight;
     @Save("100") private double overlayXGap;
     @Save("100") private double overlayYGap;
 
