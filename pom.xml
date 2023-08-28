@@ -85,6 +85,12 @@
                     <include>**/*.css</include >
                 </includes>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include >
+                </includes>
+            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -112,7 +118,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.focustimer.focustimer/com.focustimer.focustimer.Application</mainClass>
+                            <mainClass>com.focustimer.focustimer.Application</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

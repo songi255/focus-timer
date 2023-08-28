@@ -94,7 +94,12 @@ public class MainController implements Initializable, TimerObserver {
         }
 
         if (state == TimerState.FINISH){
-            TrayNotification.notifyTray("Time done", "test");
+            if (timerModel.isPomoMode()){
+                TrayNotification.notifyTray("Rest Time done", "Ready to Focus!");
+            } else {
+                TrayNotification.notifyTray("Focus Time done", "Take a rest for a while!");
+            }
+
         }
     }
 

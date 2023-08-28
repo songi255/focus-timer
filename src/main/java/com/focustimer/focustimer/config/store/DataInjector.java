@@ -79,11 +79,10 @@ public class DataInjector {
 
             try {
                 Class<?> fieldType = getWrapperClass(field.getType());
-                String fetchedValue = dataManager.getData(key);
-                if (fetchedValue == null) fetchedValue = defaultValue;
+                String fetchedValue = Optional.<String>of(dataManager.getData(key)).orElse(defaultValue);
 
                 Method setter = clazz.getMethod(setterName, field.getType());
-                setter.invoke(targetObj, fieldType.getConstructor(String.class).newInstance(defaultValue));
+                setter.invoke(targetObj, fieldType.getConstructor(String.class).newInstance(fetchedValue));
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException("setter not exists on " + clazz.getName(), e);
             } catch (InstantiationException e) {

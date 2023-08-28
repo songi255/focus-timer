@@ -1,10 +1,12 @@
 package com.focustimer.focustimer.config.store;
 
 import com.focustimer.focustimer.config.autoscan.Component;
+import com.focustimer.focustimer.utils.PathProvider;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.nio.file.FileSystems;
 import java.util.Properties;
 
 @Slf4j
@@ -13,7 +15,7 @@ public class DataManager {
     private final Properties properties = new Properties();
     @Inject
     public DataManager() {
-        try (InputStream is = getClass().getResourceAsStream("/com/focustimer/focustimer/config.properties")) {
+        try (InputStream is = new FileInputStream(getConfigFile())) {
             properties.load(is);
         } catch (IOException e) {
             log.error("config.properties not found.");
@@ -36,12 +38,22 @@ public class DataManager {
     }
 
     private void saveToFile(){
-        try (OutputStream os = new FileOutputStream(getClass().getResource("/com/focustimer/focustimer/config.properties").getFile())) {
+        try (OutputStream os = new FileOutputStream(getConfigFile())) {
             properties.store(os, "saved properties");
         } catch (IOException e) {
             log.error("config.properties file not found.");
             throw new RuntimeException(e);
         }
+    }
+
+    private File getConfigFile() throws IOException {
+        File file = new File(PathProvider.getAppDataPath() + FileSystems.getDefault().getSeparator() + "config.properties");
+        File folder = file.getParentFile();
+
+        if (!folder.exists()) folder.mkdirs();
+        if (!file.exists()) file.createNewFile();
+
+        return file;
     }
 
     public static String generateKey(int templateNum, String... keys){
