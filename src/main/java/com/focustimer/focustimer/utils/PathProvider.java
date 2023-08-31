@@ -6,15 +6,18 @@ public class PathProvider {
     public static String getAppDataPath(){
         String osName = System.getProperty("os.name").toUpperCase();
         String appDataPath = null;
+        String folderPath = null;
 
         if (osName.contains("WINDOWS")){
             appDataPath = System.getenv("APPDATA");
-        } else if (osName.contains("LINUX")) {
+            folderPath = "FocusTimer";
+        } else if (osName.contains("LINUX") || osName.contains("MAC")) {
             appDataPath = System.getProperty("user.home");
+            folderPath = ".FocusTimer";
         } else {
             return "unsupported OS";
         }
 
-        return appDataPath + FileSystems.getDefault().getSeparator() + "FocusTimer";
+        return appDataPath + FileSystems.getDefault().getSeparator() + folderPath;
     }
 }

@@ -79,7 +79,8 @@ public class DataInjector {
 
             try {
                 Class<?> fieldType = getWrapperClass(field.getType());
-                String fetchedValue = Optional.<String>of(dataManager.getData(key)).orElse(defaultValue);
+                String fetchedValue = dataManager.getData(key);
+                if (fetchedValue == null) fetchedValue = defaultValue;
 
                 Method setter = clazz.getMethod(setterName, field.getType());
                 setter.invoke(targetObj, fieldType.getConstructor(String.class).newInstance(fetchedValue));

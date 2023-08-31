@@ -42,6 +42,8 @@ public class headerBarController implements Initializable {
     @FXML public void btnFullScreenHandler(){
         Stage stage = (Stage) templateText.getScene().getWindow();
         stage.setFullScreen(!stage.isFullScreen());
+        stage.setAlwaysOnTop(false);
+        stage.setAlwaysOnTop(true);
     }
 
     @FXML public void btnMenuHandler(){

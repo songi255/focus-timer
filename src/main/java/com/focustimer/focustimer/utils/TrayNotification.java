@@ -7,7 +7,6 @@ public class TrayNotification {
         SystemTray tray = SystemTray.getSystemTray();
 
         Image image = Toolkit.getDefaultToolkit().createImage("some-icon.png");
-        //Image image = Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon.png"));
 
         TrayIcon trayIcon = new TrayIcon(image, "Focus Timer");
         trayIcon.setImageAutoSize(true);
@@ -19,6 +18,5 @@ public class TrayNotification {
         }
 
         trayIcon.displayMessage(caption, text, TrayIcon.MessageType.INFO);
-        
     }
 }
