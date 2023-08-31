@@ -6,7 +6,7 @@ It supports windows, mac, linux but tested only with windows.
 
 ## Demo
 
-[![Watch the video](https://img.youtube.com/vi/UOKJVtFY21U/default.jpg)](https://youtu.be/UOKJVtFY21U)
+![demo video](demo.gif)
 
 Features:
 - always on top
@@ -38,3 +38,5 @@ java -jar "yourfile.jar"
 ## Warning
 
 This version is just prototype and planned to refactoring.
+
+But no fatal error exists, you can use this version.
