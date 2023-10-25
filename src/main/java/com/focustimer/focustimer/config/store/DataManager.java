@@ -13,7 +13,6 @@ import java.util.Properties;
 @Component
 public class DataManager {
     private final Properties properties = new Properties();
-    @Inject
     public DataManager() {
         try (InputStream is = new FileInputStream(getConfigFile())) {
             properties.load(is);

@@ -28,6 +28,9 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
     private double xOffset;
     private double yOffset;
 
+    // optimization
+    private final Runnable drawTask = this::drawTimer;
+
     @Inject
     public TimerDiskViewController(TimerModel timerModel, OverlayModel overlayModel) {
         this.timerModel = timerModel;
@@ -63,7 +66,7 @@ public class TimerDiskViewController implements Initializable, TimerObserver {
 
     @Override
     public void onTimerTimeChanged() {
-        Platform.runLater(this::drawTimer);
+        Platform.runLater(drawTask);
     }
 
     @Override
