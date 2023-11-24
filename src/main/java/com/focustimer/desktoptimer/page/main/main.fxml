@@ -3,8 +3,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
-<!--<GridPane fx:id="mainContainer" onMousePressed="#mainContainerPressHandler" onMouseDragged="#mainContainerDragHandler" onMouseClicked="#mainContainerClickHandler" maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.desktoptimer.pages.main.MainController">-->
-<GridPane fx:id="mainContainer" fx:controller="com.focustimer.desktoptimer.pages.main.MainController" maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<!--<GridPane fx:id="mainContainer" onMousePressed="#mainContainerPressHandler" onMouseDragged="#mainContainerDragHandler" onMouseClicked="#mainContainerClickHandler" maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.desktoptimer.page.main.MainController">-->
+<GridPane fx:id="mainContainer" fx:controller="com.focustimer.desktoptimer.page.main.MainController" maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints percentWidth="10" halignment="CENTER" />
       <ColumnConstraints percentWidth="10" halignment="CENTER" />

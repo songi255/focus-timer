@@ -7,6 +7,6 @@ module com.focustimer.desktoptimer {
     opens com.focustimer.desktoptimer to javafx.fxml;
     exports com.focustimer.desktoptimer;
 
-    opens com.focustimer.desktoptimer.pages.main to javafx.fxml;
-    exports com.focustimer.desktoptimer.pages.main;
+    opens com.focustimer.desktoptimer.page.main to javafx.fxml;
+    exports com.focustimer.desktoptimer.page.main;
 }

@@ -1,4 +1,4 @@
-package com.focustimer.desktoptimer.pages.main;
+package com.focustimer.desktoptimer.page.main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
