@@ -25,6 +25,11 @@
         <artifactId>javafx-fxml</artifactId>
         <version>17.0.6</version>
     </dependency>
+    <dependency>
+        <groupId>org.controlsfx</groupId>
+        <artifactId>controlsfx</artifactId>
+        <version>11.2.0</version>
+    </dependency>
 
     <dependency>
         <groupId>org.slf4j</groupId>
@@ -88,6 +93,13 @@
             <configuration>
                 <source>17</source>
                 <target>17</target>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.28</version>
+                    </path>
+                </annotationProcessorPaths>
             </configuration>
         </plugin>
         <plugin>
