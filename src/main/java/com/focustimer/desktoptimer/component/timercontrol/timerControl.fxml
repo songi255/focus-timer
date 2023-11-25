@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.Button?>
+<HBox stylesheets="@timerControl.css"
+      xmlns="http://javafx.com/javafx/20.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.focustimer.desktoptimer.component.timercontrol.TimerControlController"
+      fx:id="timerControlContainer"
+      alignment="CENTER">
+    <Button fx:id="btnStop" styleClass="btn" onAction="#handleStop">
+        <graphic>
+            <ImageView styleClass="btn-img" fx:id="btnStopImg">
+                <Image url="@../../icons/stop.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button fx:id="btnStart" styleClass="btn" onAction="#handleStart">
+        <graphic>
+            <ImageView styleClass="btn-img" fx:id="btnStartImg">
+                <Image url="@../../icons/play.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button fx:id="btnSound" styleClass="btn" onAction="#handleSound">
+        <graphic>
+            <ImageView styleClass="btn-img" fx:id="btnSoundImg">
+                <Image url="@../../icons/volume_on.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+</HBox>
