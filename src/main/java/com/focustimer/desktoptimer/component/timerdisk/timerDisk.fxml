@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.focustimer.desktoptimer.component.timerdisk.CanvasPane?>
+<CanvasPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.focustimer.desktoptimer.component.timerdisk.TimerDiskController"
+            fx:id="timerCanvasContainer"
+            stylesheets="@timerDisk.css">
+</CanvasPane>
