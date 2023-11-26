@@ -3,8 +3,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
-<!--<GridPane fx:id="mainContainer" onMousePressed="#mainContainerPressHandler" onMouseDragged="#mainContainerDragHandler" onMouseClicked="#mainContainerClickHandler" maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.desktoptimer.page.main.MainController">-->
-<GridPane fx:id="mainContainer" fx:controller="com.focustimer.desktoptimer.page.main.MainController" maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<!--<GridPane fx:id="mainContainer"  maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focustimer.desktoptimer.page.main.MainController">-->
+<GridPane fx:id="mainContainer" fx:controller="com.focustimer.desktoptimer.page.main.MainController"
+          onMousePressed="#mainContainerPressHandler"
+          onMouseDragged="#mainContainerDragHandler"
+          onMouseClicked="#mainContainerClickHandler"
+          onMouseEntered="#mainContainerMouseEnterHandler"
+          onMouseExited="#mainContainerMouseExitHandler"
+          onScroll="#mainContainerScrollHandler"
+          maxWidth="Infinity" maxHeight="Infinity" stylesheets="@main.css"
+          xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints percentWidth="10" halignment="CENTER" />
       <ColumnConstraints percentWidth="10" halignment="CENTER" />
@@ -24,8 +32,8 @@
       <RowConstraints vgrow="NEVER" />
    </rowConstraints>
 
-<!--   <fx:include fx:id="headerBar" source="../../components/headerBar/headerBar.fxml" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="10" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true" />-->
-<!--   <fx:include fx:id="timerDiskView" source="../../components/timerDiskView/timerDiskView.fxml" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true" GridPane.vgrow="ALWAYS" GridPane.fillHeight="true"/>-->
-<!--   <fx:include fx:id="timerTextView" source="../../components/timerTextView/timerTextView.fxml" GridPane.rowIndex="2" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true"/>-->
-<!--   <fx:include fx:id="timerController" source="../../components/timerControl/timerControl.fxml" GridPane.rowIndex="3" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true"/>-->
+   <fx:include fx:id="headerBar" source="../../component/headerbar/headerBar.fxml" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="10" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true" />
+   <fx:include fx:id="timerDiskView" source="../../component/timerdisk/timerDisk.fxml" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true" GridPane.vgrow="ALWAYS" GridPane.fillHeight="true"/>
+   <fx:include fx:id="timerTextView" source="../../component/timertext/timerText.fxml" GridPane.rowIndex="2" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true"/>
+   <fx:include fx:id="timerControl" source="../../component/timercontrol/timerControl.fxml" GridPane.rowIndex="3" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true"/>
 </GridPane>
