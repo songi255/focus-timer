@@ -11,10 +11,16 @@ package com.focustimer.desktoptimer.service;
 import com.focustimer.desktoptimer.common.Inject;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+
+import static com.focustimer.desktoptimer.util.NewValueListener.listen;
 
 @Slf4j
 public class StageService extends AnimationTimer {
@@ -44,6 +50,35 @@ public class StageService extends AnimationTimer {
         setting.originalHeight.set(stage.getHeight());
         setting.originalX.set(stage.getX());
         setting.originalY.set(stage.getY());
+        bindStage(stage);
+    }
+
+    public void bindStage(Stage stage) {
+        DoubleProperty overlayX = new SimpleDoubleProperty();
+        DoubleProperty overlayY = new SimpleDoubleProperty();
+        bindOnOverlayCondition(stage.xProperty(), setting.originalX, overlayX);
+        bindOnOverlayCondition(stage.yProperty(), setting.originalY, overlayY);
+        bindOnOverlayCondition(stage.widthProperty(), setting.originalWidth, setting.overlayWidth);
+        bindOnOverlayCondition(stage.heightProperty(), setting.originalHeight, setting.overlayHeight);
+        overlayX.addListener(listen(stageX -> {
+            setting.overlayXGap.set(
+                    Screen.getPrimary().getBounds().getWidth() - (double) stageX - setting.overlayWidth.get());
+        }));
+        overlayY.addListener(listen(stageY -> {
+            setting.overlayYGap.set(
+                    Screen.getPrimary().getBounds().getHeight() - (double) stageY - setting.overlayHeight.get());
+        }));
+    }
+
+    private <T> void bindOnOverlayCondition(ObservableValue<T> source, Property<T> normal, Property<T> overlay) {
+        source.addListener(listen(newValue -> {
+            if (isOverlayRunning.get()) {
+                return;
+            }
+
+            Property<T> target = isOverlayMode.get() ? overlay : normal;
+            target.setValue(source.getValue());
+        }));
     }
 
     public void overlay() {
@@ -99,8 +134,8 @@ public class StageService extends AnimationTimer {
         to[0] = setting.overlayOpacity.get();
         to[1] = setting.overlayWidth.get();
         to[2] = setting.overlayHeight.get();
-        to[3] = screenWidth - (to[1] + setting.getOverlayXGap().get());
-        to[4] = screenHeight - (to[2] + setting.getOverlayYGap().get());
+        to[3] = screenWidth - (to[1] + setting.overlayXGap.get());
+        to[4] = screenHeight - (to[2] + setting.overlayYGap.get());
     }
 
     private void flip() {
