@@ -1,0 +1,24 @@
+.header-bar{
+    -fx-background-color: "D9D9D9";
+    -fx-background-radius: 10 10 0 0;
+}
+
+.btn {
+    -fx-background-color: none;
+    -fx-padding: 6 8;
+}
+
+.btn:hover {
+    -fx-background-color: "FBFBFB";
+}
+
+.btn-container {
+    -fx-alignment: center;
+    -fx-row-valignment: center;
+    -fx-spacing: 0;
+}
+
+#title {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14;
+}
