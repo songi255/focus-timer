@@ -83,7 +83,23 @@ public class TimerViewModel {
         }
     }
 
-    public void setMainTimer() {
+    public void setMainMode(){
+        if (isTimerRunning.get() || !isPomodoroMode.get()){
+            return;
+        }
+        unsetPomodoroTimer();
+        setMainTimer();
+    }
+
+    public void setPomodoroMode(){
+        if (!usingPomodoro.get() || isTimerRunning.get() || isPomodoroMode.get()){
+            return;
+        }
+        unsetMainTimer();
+        setPomodoroTimer();
+    }
+
+    private void setMainTimer() {
         isPomodoroMode.set(false);
         mainCurTime.set(mainStartTime.get());
         maxTime.bindBidirectional(this.mainMaxTime);
@@ -92,7 +108,7 @@ public class TimerViewModel {
         timerName.bindBidirectional(this.mainTimerName);
     }
 
-    public void unsetMainTimer() {
+    private void unsetMainTimer() {
         isPomodoroMode.set(true);
         maxTime.unbindBidirectional(this.mainMaxTime);
         startTime.unbindBidirectional(this.mainStartTime);
@@ -100,7 +116,7 @@ public class TimerViewModel {
         timerName.unbindBidirectional(this.mainTimerName);
     }
 
-    public void setPomodoroTimer() {
+    private void setPomodoroTimer() {
         isPomodoroMode.set(true);
         pomodoroCurTime.set(pomodoroStartTime.get());
         maxTime.bindBidirectional(this.pomodoroMaxTime);
@@ -109,7 +125,7 @@ public class TimerViewModel {
         timerName.bindBidirectional(this.pomodoroTimerName);
     }
 
-    public void unsetPomodoroTimer() {
+    private void unsetPomodoroTimer() {
         isPomodoroMode.set(false);
         maxTime.unbindBidirectional(this.pomodoroMaxTime);
         startTime.unbindBidirectional(this.pomodoroStartTime);

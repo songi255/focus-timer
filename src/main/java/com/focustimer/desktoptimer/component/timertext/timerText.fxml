@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.focustimer.desktoptimer.component.timertext.TimerTextController"
+            fx:id="textContainer"
+            stylesheets="@timerText.css"
+            alignment="CENTER">
+    <HBox fx:id="mainContainer" alignment="CENTER" onMouseClicked="#handleMainContainerClick">
+        <Text fx:id="mainMinute" />
+        <Text fx:id="mainColon" text=":" />
+        <Text fx:id="mainSecond" />
+    </HBox>
+
+    <HBox fx:id="pomodoroContainer" alignment="CENTER" onMouseClicked="#handlePomodoroContainerClick">
+        <Text fx:id="pomodoroMinute" />
+        <Text fx:id="pomodoroColon" text=":" />
+        <Text fx:id="pomodoroSecond" />
+    </HBox>
+
+</VBox>
