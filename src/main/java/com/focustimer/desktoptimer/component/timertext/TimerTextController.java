@@ -67,7 +67,7 @@ public class TimerTextController implements Initializable {
         scaleDownTransition.setToX(1);
         scaleDownTransition.setToY(1);
 
-        colonTransition = new FadeTransition(Duration.millis(500), currentModeColon);
+        colonTransition = new FadeTransition(Duration.millis(500));
         colonTransition.setAutoReverse(true);
         colonTransition.setCycleCount(Animation.INDEFINITE);
         colonTransition.setToValue(0);
@@ -97,6 +97,7 @@ public class TimerTextController implements Initializable {
 
         timerViewModel.isTimerRunning.addListener(listen(isTimerRunning -> {
             if (isTimerRunning) {
+                colonTransition.setNode(currentModeColon);
                 colonTransition.play();
             } else {
                 colonTransition.stop();
