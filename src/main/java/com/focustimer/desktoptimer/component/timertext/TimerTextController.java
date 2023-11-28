@@ -213,12 +213,14 @@ public class TimerTextController implements Initializable {
                         return;
                     }
                     timerViewModel.pomodoroStartTime.set(next);
+                    timerViewModel.pomodoroCurTime.set(next);
                 } else {
                     next = timerViewModel.mainStartTime.get() + deltaTime;
                     if (next < 0 || next > timerViewModel.mainMaxTime.get()) {
                         return;
                     }
                     timerViewModel.mainStartTime.set(next);
+                    timerViewModel.mainCurTime.set(next);
                 }
             }
         };

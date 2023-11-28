@@ -1,7 +1,7 @@
 package com.focustimer.desktoptimer.component.timerdisk;
 
 import com.focustimer.desktoptimer.common.Inject;
-import com.focustimer.desktoptimer.viewmodel.OverlayViewModel;
+import com.focustimer.desktoptimer.service.StageService;
 import com.focustimer.desktoptimer.viewmodel.TimerViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,7 +19,7 @@ public class TimerDiskController implements Initializable {
     CanvasPane timerCanvasContainer;
 
     private final TimerViewModel timerViewModel;
-    private final OverlayViewModel overlayViewModel;
+    private final StageService stageService;
     private final TimerDiskSetting setting = new TimerDiskSetting();
     private final TimerDiskDrawer drawer = new TimerDiskDrawer();
     private final TimerDiskMouseHandler mouseHandler;
@@ -28,20 +28,20 @@ public class TimerDiskController implements Initializable {
     private Paint pomodoroTimerColor = Paint.valueOf(setting.pomodoroTimerColor.get());
 
     @Inject
-    public TimerDiskController(TimerViewModel timerViewModel, OverlayViewModel overlayViewModel) {
+    public TimerDiskController(TimerViewModel timerViewModel, StageService stageService) {
         this.timerViewModel = timerViewModel;
-        this.overlayViewModel = overlayViewModel;
+        this.stageService = stageService;
         this.mouseHandler = new TimerDiskMouseHandler(timerViewModel);
 
         timerViewModel.curTime.addListener(listen(this::drawTimerArc));
         timerViewModel.maxTime.addListener(listen(newMaxTime -> {
             drawTimerGuide();
         }));
-        timerViewModel.isPomodoro.addListener(listen(isPomodoro -> {
+        timerViewModel.isPomodoroMode.addListener(listen(isPomodoro -> {
             timerCanvasContainer.getTextArea().setText(timerViewModel.timerName.get());
         }));
 
-        overlayViewModel.isOverlayMode.addListener(listen(this::drawTimerGuide));
+        stageService.isOverlayMode.addListener(listen(this::drawTimerGuide));
 
         setting.mainTimerColor.addListener(listen(newColor -> {
             mainTimerColor = Paint.valueOf(newColor);
@@ -70,7 +70,7 @@ public class TimerDiskController implements Initializable {
     }
 
     public void drawTimerGuide() {
-        boolean isOverlayMode = overlayViewModel.isOverlayMode.get();
+        boolean isOverlayMode = stageService.isOverlayMode.get();
 
         TextArea textArea = timerCanvasContainer.getTextArea();
         textArea.setVisible(!isOverlayMode);
@@ -89,9 +89,9 @@ public class TimerDiskController implements Initializable {
     }
 
     public void drawTimerArc(){
-        Paint color = timerViewModel.isPomodoro.get() ? pomodoroTimerColor : mainTimerColor;
+        Paint color = timerViewModel.isPomodoroMode.get() ? pomodoroTimerColor : mainTimerColor;
         drawer.clearBackCanvas();
-        drawer.drawArc(color, (double) timerViewModel.curTime.get() / timerViewModel.maxTime.get() * 360);
+        drawer.drawArc(color, (double) timerViewModel.curTime.get() / timerViewModel.maxTime.get() * 360.0);
     }
 
     public void drawTimer(){
