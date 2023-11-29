@@ -4,12 +4,12 @@ import com.focustimer.desktoptimer.common.Inject;
 import com.focustimer.desktoptimer.viewmodel.TimerViewModel;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
@@ -46,12 +46,14 @@ public class TimerTextController implements Initializable {
     @FXML
     Text pomodoroSecond;
 
+    HBox currentModeContainer;
     Text currentModeMinute;
     Text currentModeColon;
     Text currentModeSecond;
     FadeTransition colonTransition;
     ScaleTransition scaleUpTransition;
     ScaleTransition scaleDownTransition;
+    Tooltip tooltip = new Tooltip();
 
     private final TimerViewModel timerViewModel;
 
@@ -115,6 +117,9 @@ public class TimerTextController implements Initializable {
         pomodoroMinute.setCursor(Cursor.V_RESIZE);
         pomodoroSecond.setCursor(Cursor.V_RESIZE);
 
+        tooltip.setAutoHide(true);
+        tooltip.setFont(new Font("Inter", 12));
+
         // scroll listner
         mainMinute.setOnScroll(getScrollHandler(false, true));
         mainSecond.setOnScroll(getScrollHandler(false, false));
@@ -123,6 +128,7 @@ public class TimerTextController implements Initializable {
     }
 
     public void setMainMode() {
+        currentModeContainer = mainContainer;
         currentModeMinute = mainMinute;
         currentModeColon = mainColon;
         currentModeSecond = mainSecond;
@@ -139,6 +145,7 @@ public class TimerTextController implements Initializable {
     }
 
     public void setPomodoroMode() {
+        currentModeContainer = pomodoroContainer;
         currentModeMinute = pomodoroMinute;
         currentModeColon = pomodoroColon;
         currentModeSecond = pomodoroSecond;

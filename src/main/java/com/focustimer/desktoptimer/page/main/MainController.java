@@ -3,6 +3,7 @@ package com.focustimer.desktoptimer.page.main;
 import com.focustimer.desktoptimer.common.Inject;
 import com.focustimer.desktoptimer.service.StageService;
 import com.focustimer.desktoptimer.service.StageSetting;
+import com.focustimer.desktoptimer.util.Notification;
 import com.focustimer.desktoptimer.util.StageShownEvent;
 import com.focustimer.desktoptimer.viewmodel.TimerViewModel;
 import java.net.URL;
@@ -34,6 +35,8 @@ public class MainController implements Initializable {
     Parent timerControl;
     @FXML
     Parent timerDiskView;
+    @FXML
+    Parent finishTime;
     final List<Node> hidingNodes = new Vector<>();
 
     Stage stage;
@@ -55,6 +58,7 @@ public class MainController implements Initializable {
                 stageService.overlay();
             } else {
                 stageService.unOverlay();
+                Notification.notifyMessage(stage, "timer done");
             }
         }));
 
@@ -69,7 +73,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        hidingNodes.addAll(List.of(timerTextView, timerControl, headerBar));
+        hidingNodes.addAll(List.of(timerTextView, timerControl, headerBar, finishTime));
         // detect stage shown
         mainContainer.addEventHandler(StageShownEvent.STAGE_SHOWN, event -> {
             this.stage = (Stage) mainContainer.getScene().getWindow();

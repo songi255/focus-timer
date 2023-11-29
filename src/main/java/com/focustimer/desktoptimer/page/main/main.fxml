@@ -35,5 +35,6 @@
    <fx:include fx:id="headerBar" source="../../component/headerbar/headerBar.fxml" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="10" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true" />
    <fx:include fx:id="timerDiskView" source="../../component/timerdisk/timerDisk.fxml" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true" GridPane.vgrow="ALWAYS" GridPane.fillHeight="true"/>
    <fx:include fx:id="timerTextView" source="../../component/timertext/timerText.fxml" GridPane.rowIndex="2" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true"/>
+   <fx:include fx:id="finishTime" source="../../component/finishtime/FinishTime.fxml" GridPane.rowIndex="2" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
    <fx:include fx:id="timerControl" source="../../component/timercontrol/timerControl.fxml" GridPane.rowIndex="3" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.fillWidth="true"/>
 </GridPane>
