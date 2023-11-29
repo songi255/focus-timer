@@ -102,6 +102,7 @@ public class TimerTextController implements Initializable {
                 colonTransition.setNode(currentModeColon);
                 colonTransition.play();
             } else {
+                colonTransition.jumpTo(Duration.millis(0));
                 colonTransition.stop();
             }
         }));
