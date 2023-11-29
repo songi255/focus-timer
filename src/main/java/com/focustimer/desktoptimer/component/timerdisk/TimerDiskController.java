@@ -64,6 +64,7 @@ public class TimerDiskController implements Initializable {
         mouseHandler.setCanvas(timerCanvasContainer.getForeCanvas());
         guideCanvas.setOnMousePressed(mouseHandler::canvasMouseHandler);
         guideCanvas.setOnMouseDragged(mouseHandler::canvasMouseHandler);
+        timerCanvasContainer.setOnScroll(mouseHandler::handleMouseScrollEvent);
 
         TextArea textArea = timerCanvasContainer.getTextArea();
         textArea.textProperty().bindBidirectional(timerViewModel.timerName);
@@ -88,13 +89,13 @@ public class TimerDiskController implements Initializable {
         }
     }
 
-    public void drawTimerArc(){
+    public void drawTimerArc() {
         Paint color = timerViewModel.isPomodoroMode.get() ? pomodoroTimerColor : mainTimerColor;
         drawer.clearBackCanvas();
         drawer.drawArc(color, (double) timerViewModel.curTime.get() / timerViewModel.maxTime.get() * 360.0);
     }
 
-    public void drawTimer(){
+    public void drawTimer() {
         drawTimerGuide();
         drawTimerArc();
     }

@@ -6,6 +6,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 
 public class TimerDiskMouseHandler {
 
@@ -65,5 +66,21 @@ public class TimerDiskMouseHandler {
         // deprive focus from other nodes
         canvas.requestFocus();
         e.consume();
+    }
+
+    public void handleMouseScrollEvent(ScrollEvent e){
+        if (timerViewModel.isTimerRunning.get()) {
+            return;
+        }
+
+        boolean isUp = e.getDeltaY() > 0;
+        long deltaTime = 60 * (isUp ? 1 : -1);
+
+        long next = timerViewModel.startTime.get() + deltaTime;
+        if (next < 0 || next > timerViewModel.maxTime.get()) {
+            return;
+        }
+        timerViewModel.startTime.set(next);
+        timerViewModel.curTime.set(next);
     }
 }
