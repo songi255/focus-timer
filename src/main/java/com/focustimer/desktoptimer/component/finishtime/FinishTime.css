@@ -1,0 +1,9 @@
+.finish-text-container{
+    -fx-max-width: 96;
+    -fx-padding: 8;
+    -fx-background-color: "000000CC";
+    -fx-background-radius: 4;
+    -fx-fill: white;
+    -fx-translate-x: -16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+}
