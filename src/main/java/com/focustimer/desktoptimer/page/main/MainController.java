@@ -1,6 +1,7 @@
 package com.focustimer.desktoptimer.page.main;
 
 import com.focustimer.desktoptimer.common.Inject;
+import com.focustimer.desktoptimer.config.ApplicationSetting;
 import com.focustimer.desktoptimer.service.StageService;
 import com.focustimer.desktoptimer.service.StageSetting;
 import com.focustimer.desktoptimer.util.Notification;
@@ -58,7 +59,10 @@ public class MainController implements Initializable {
                 stageService.overlay();
             } else {
                 stageService.unOverlay();
-                Notification.notifyMessage(stage, "timer done");
+                if (ApplicationSetting.alarmSound.get()){
+                    Notification.playAlertSound();
+                }
+                //Notification.showMessage(stage, "timer done");
             }
         }));
 
