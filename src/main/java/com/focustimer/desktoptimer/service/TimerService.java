@@ -25,8 +25,7 @@ public class TimerService extends Service<Void> {
                 long passedTime = 0;
 
                 while (passedTime < startSec) {
-                    // test. erase 1000 when deploy
-                    passedTime = (System.currentTimeMillis() - startTime) / 1000 * 1000;
+                    passedTime = (System.currentTimeMillis() - startTime) / 1000;
                     long currentTime = startSec - passedTime;
                     timerModel.curTime.set(currentTime > 0 ? currentTime : 0);
 

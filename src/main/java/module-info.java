@@ -1,9 +1,9 @@
 module com.focustimer.desktoptimer {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
     requires static lombok;
     requires org.slf4j;
-    requires org.controlsfx.controls;
 
     opens com.focustimer.desktoptimer to javafx.fxml;
     exports com.focustimer.desktoptimer;
@@ -34,6 +34,7 @@ module com.focustimer.desktoptimer {
 
     opens com.focustimer.desktoptimer.model to javafx.fxml;
     exports com.focustimer.desktoptimer.model;
-    exports com.focustimer.desktoptimer.util;
+
     opens com.focustimer.desktoptimer.util to javafx.fxml;
+    exports com.focustimer.desktoptimer.util;
 }

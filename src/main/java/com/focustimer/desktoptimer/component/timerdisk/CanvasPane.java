@@ -42,7 +42,8 @@ public class CanvasPane extends Pane {
         final double originalW = snapSizeX(getWidth()) - originalX - snappedRightInset();
         final double originalH = snapSizeY(getHeight()) - originalY - snappedBottomInset();
 
-        final double w = Math.min(originalW, originalH);
+        // subtract 1 for preventing infinite layout calling... I don't know it's just javafx bug or not...
+        final double w = Math.min(originalW, originalH) - 1;
         final double h = w;
         final double x = originalX + (originalW - w) / 2;
         final double y = originalY + (originalH - h) / 2;

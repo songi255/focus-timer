@@ -1,11 +1,3 @@
-/**
- * Provides overlay animation
- * <p>
- * this service modify window's - opacity - size - position
- *
- * @author Dave Shin
- */
-
 package com.focustimer.desktoptimer.service;
 
 import com.focustimer.desktoptimer.common.Inject;
