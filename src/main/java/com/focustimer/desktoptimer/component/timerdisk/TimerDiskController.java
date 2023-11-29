@@ -39,6 +39,7 @@ public class TimerDiskController implements Initializable {
         }));
         timerViewModel.isPomodoroMode.addListener(listen(isPomodoro -> {
             timerCanvasContainer.getTextArea().setText(timerViewModel.timerName.get());
+            drawTimerArc();
         }));
 
         stageService.isOverlayMode.addListener(listen(this::drawTimerGuide));

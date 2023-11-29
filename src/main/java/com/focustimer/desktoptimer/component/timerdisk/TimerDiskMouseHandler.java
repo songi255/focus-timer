@@ -80,7 +80,7 @@ public class TimerDiskMouseHandler {
         if (next < 0 || next > timerViewModel.maxTime.get()) {
             return;
         }
-        timerViewModel.startTime.set(next);
         timerViewModel.curTime.set(next);
+        timerViewModel.startTime.set(next);
     }
 }
