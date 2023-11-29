@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import static com.focustimer.desktoptimer.util.NewValueListener.listen;
+
 public class TimerViewModel {
     private final TimerModel timerModel;
     private final TimerService timerService;
@@ -49,6 +51,18 @@ public class TimerViewModel {
         curTime.bindBidirectional(timerModel.curTime);
         timerName.bindBidirectional(timerModel.timerName);
 
+        pomodoroStartTime.addListener(listen(newStartTime -> {
+            if (newStartTime.longValue() == 0) {
+                usingPomodoro.set(false);
+                if (isPomodoroMode.get()) {
+                    unsetPomodoroTimer();
+                    setMainTimer();
+                }
+            } else {
+                usingPomodoro.set(true);
+            }
+        }));
+
         setMainTimer();
         isTimerRunning.bind(timerService.runningProperty());
         timerService.setOnSucceeded(workerStateEvent -> {
@@ -83,16 +97,16 @@ public class TimerViewModel {
         }
     }
 
-    public void setMainMode(){
-        if (isTimerRunning.get() || !isPomodoroMode.get()){
+    public void setMainMode() {
+        if (isTimerRunning.get() || !isPomodoroMode.get()) {
             return;
         }
         unsetPomodoroTimer();
         setMainTimer();
     }
 
-    public void setPomodoroMode(){
-        if (!usingPomodoro.get() || isTimerRunning.get() || isPomodoroMode.get()){
+    public void setPomodoroMode() {
+        if (!usingPomodoro.get() || isTimerRunning.get() || isPomodoroMode.get()) {
             return;
         }
         unsetMainTimer();
