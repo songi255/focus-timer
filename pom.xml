@@ -26,9 +26,9 @@
         <version>17.0.6</version>
     </dependency>
     <dependency>
-        <groupId>org.controlsfx</groupId>
-        <artifactId>controlsfx</artifactId>
-        <version>11.2.0</version>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-media</artifactId>
+        <version>17.0.6</version>
     </dependency>
 
     <dependency>
@@ -136,8 +136,8 @@
                 <module>com.focustimer.desktoptimer/com.focustimer.desktoptimer.Application</module>
                 <runtimeImage>target/app</runtimeImage>
 
-<!--                <winShortcut>true</winShortcut>-->
-<!--                <icon>appIcon.ico</icon>-->
+                <winShortcut>true</winShortcut>
+                <icon>src/main/resources/com/focustimer/desktoptimer/icons/app_icon.ico</icon>
                 <javaOptions>
                     <option>-Dfile.encoding=UTF-8</option>
                 </javaOptions>
