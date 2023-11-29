@@ -1,42 +1,79 @@
 # Focus Timer Desktop App
 
-prototype version of JavaFX Visual timer desktop application.
-
-It supports windows, mac, linux but tested only with windows. 
+JavaFX Visual timer application for desktop.
 
 ## Demo
 
 ![demo video](demo.gif)
 
-Features:
+**Features:**
 - always on top
 - full screen
 - overlay with opacity
 - pomodoro mode
 - save settings
 
+## How to use
+
+**If the application has crashed, please delete the entire `%appdata%\FocusTimer` folder and then restart the application.**
+
+#### Timer Disk
+
+- **Click/Drag/Scroll** to modify time.
+
+#### Time Text
+
+The time text above represents the main timer, while the time text below indicates the Pomodoro timer.
+- **Click** to change main/pomodoro mode.
+- **Scroll** on Minute or Second text to modify time.
+
+#### Finish Time Indicator
+
+Box with black color beside time text represents finish time.
+
+#### pomodoro mode
+
+When pomodoro timer is set to value over 0, pomodoro mode is turned on.
+
+In pomodoro mode, main timer and pomodoro timer is alternately used.
+
+
+#### Overlay Mode
+
+When you start the timer, the app is gone to overlay mode.
+- **Click** to return to normal mode.
+- **Drag** to change overlay position. This position is saved.
+- **Scroll** to modify opacity of overlay window.
+
 ## How to run
 
-you need `Java 17+` version to run this app.
-please install OpenJDK 17 on [Here](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html).
-
-Current version has Jlink issue.
-don't `deploy` but `package`.
-
-``` shell
-.\mvnw clean package
+#### Just for run
+```shell
+.\mvnw clean javafx:run
 ```
 
-you can see Jar file named with `~~SANPSHOT-jar-with-dependencies.jar` in the `target` folder.
+#### Build app image
+``` shell
+.\mvnw clean javafx:jlink
+```
 
-run with `java -jar` command.
+At the `target` folder...
+- `app.zip` is zipped `target` folder.
+- Run `target/app/bin/app` or `target/app/bin/app.bat`
+
+#### Build packaged installer (like .exe)
 
 ```shell
-java -jar "yourfile.jar"
+\mvnw clean javafx:jlink jpackage:jpackage
 ```
 
-## Warning
+You can find `exe` file at `target/dist` folder.
 
-This version is just prototype and planned to refactoring.
+If you want to get installer for other OS or modify installer settings, change `pom.xml` file's `jpackage-maven-plugin` section.
 
-But no fatal error exists, you can use this version.
+## Notice
+
+- It supports windows, mac, linux but tested only with windows.
+- Feel free to open an issue for bug reports or suggestions.
+- Since I've refactored the prototype code, the source code might be somewhat inconsistent. If you're planning to analyze the code, please take that into account.
+- This app saves settings at `%appdata%\FocusTimer`.
