@@ -6,6 +6,7 @@ import com.focustimer.desktoptimer.viewmodel.TimerViewModel;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -41,7 +42,7 @@ public class FinishTimeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         finishText.setFill(Paint.valueOf("white"));
-        finishText.setFont(new Font("Inter", 12));
+        finishText.setFont(new Font("Inter", 14));
 
         updater = new AnimationTimer() {
             long lastUpdate = 0;
@@ -55,7 +56,10 @@ public class FinishTimeController implements Initializable {
 
                 LocalDateTime time = LocalDateTime.now();
                 LocalDateTime endTime = time.plusSeconds(timerViewModel.curTime.get());
-                finishText.setText("~ " +  endTime.format(DateTimeFormatter.ofPattern("hh:mm a")));
+                finishText.setText("~ " +  endTime.format(DateTimeFormatter
+                        .ofPattern("hh:mm a")
+                        .localizedBy(Locale.US)
+                ));
             }
         };
         updater.start();
